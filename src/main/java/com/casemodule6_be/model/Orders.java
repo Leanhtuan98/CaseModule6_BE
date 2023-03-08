@@ -8,13 +8,13 @@ import java.sql.Date;
 
 @Data
 @Entity
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
     private Double total;
-    private Double deposit;
+
     @ManyToOne
     private Account account;
 
