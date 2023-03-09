@@ -13,9 +13,12 @@ public class Account {
     private Long id;
     private String name;
     private String password;
-    private String phone;
     private String email;
+    private String phone;
     private String avatar;
     @ManyToMany
     private List<Role> roles;
+
+
+
 }

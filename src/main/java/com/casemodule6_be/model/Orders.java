@@ -8,7 +8,7 @@ import java.sql.Date;
 
 @Data
 @Entity
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

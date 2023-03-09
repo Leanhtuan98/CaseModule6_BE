@@ -17,5 +17,5 @@ public class OrderDetail {
     @ManyToOne
     private Room room;
     @ManyToOne
-    private Order order;
+    private Orders order;
 }
