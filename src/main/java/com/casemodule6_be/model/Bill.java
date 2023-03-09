@@ -13,7 +13,7 @@ public class Bill {
     private Long id;
     private Date date;
     private Double total;
-
     @ManyToOne
     private Account account;
+    private Boolean status;
 }
