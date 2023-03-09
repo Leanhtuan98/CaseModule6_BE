@@ -21,4 +21,5 @@ public class Room {
 
     @ManyToOne
     private Address address;
+    private Boolean status;
 }
