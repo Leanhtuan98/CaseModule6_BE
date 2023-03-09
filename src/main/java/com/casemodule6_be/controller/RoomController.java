@@ -1,6 +1,6 @@
 package com.casemodule6_be.controller;
 
-import com.casemodule6_be.dto.Roomdetails;
+import com.casemodule6_be.dto.RoomDetails;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.service.CommentService;
 import com.casemodule6_be.service.ImageService;
@@ -23,12 +23,12 @@ public class RoomController {
     ImageService imageService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Roomdetails> findById(@PathVariable Long id) {
-        Roomdetails roomdetails = new Roomdetails();
-        Room room = roomService.findRoomByid(id);
+    public ResponseEntity<RoomDetails> findById(@PathVariable Long id) {
+        RoomDetails roomdetails = new RoomDetails();
+        Room room = roomService.findRoomById(id);
         roomdetails.setRoom(room);
         roomdetails.setComments(commentService.findCommentByRoom(room));
-        roomdetails.setImg(imageService.findImgbyRoom(room));
+        roomdetails.setImg(imageService.findImgByRoom(room));
         return new ResponseEntity<>(roomdetails, HttpStatus.OK);
     }
 }
