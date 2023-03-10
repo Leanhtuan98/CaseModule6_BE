@@ -1,5 +1,6 @@
 package com.casemodule6_be.service;
 
+import com.casemodule6_be.dto.RoomProjection;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.repository.IRoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ import java.util.Optional;
 public class RoomService {
     @Autowired
     IRoomRepo iRoomRepo;
+
+    public List<RoomProjection> findTopRent(){
+        return iRoomRepo.findTopRent();
+    }
 
     public List<Room> list(){
         return (List<Room>) iRoomRepo.findAll();
