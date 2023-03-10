@@ -16,6 +16,7 @@ public class Account {
     private String email;
     private String phone;
     private String avatar;
+    private boolean status;
     @ManyToMany
     private List<Role> roles;
 
