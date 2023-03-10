@@ -13,8 +13,22 @@ public class RoomService {
     @Autowired
     IRoomRepo iRoomRepo;
 
-    public List<Room> list(){
+    public List<Room> list() {
         return (List<Room>) iRoomRepo.findAll();
+    }
+
+    public List<Room> findByAccountId(Long accountId) {
+        return iRoomRepo.findByAccountId(accountId);
+    }
+
+    public Room save(Room room) {
+       return iRoomRepo.save(room);
+    }
+    public void delete(Long Id){
+        iRoomRepo.deleteById(Id);
+    }
+    public Room findByName(String name){
+        return iRoomRepo.findByName(name);
     }
 
 }
