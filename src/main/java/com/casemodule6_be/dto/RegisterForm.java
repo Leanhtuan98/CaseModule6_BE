@@ -3,6 +3,8 @@ package com.casemodule6_be.dto;
 import com.casemodule6_be.model.Role;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class RegisterForm {
     private String name;
@@ -10,5 +12,5 @@ public class RegisterForm {
     private String phone;
     private String password;
     private String rePassword;
-    private Role roles;
+    private List<Role> roles;
 }

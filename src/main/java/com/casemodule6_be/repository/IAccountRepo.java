@@ -14,6 +14,7 @@ public interface IAccountRepo extends PagingAndSortingRepository<Account, Long> 
     Optional<Account> findByPhone(String phone);
     Account findAccountByName(String username);
     Account findAccountByEmail(String email);
+    Account findByEmail(String email);
     Page<Account> findAccountByNameContaining(Pageable pageable, String name);
 
     Page<Account> findAccountByRoles_Id(Pageable pageable, Long id);

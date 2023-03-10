@@ -1,5 +1,6 @@
 package com.casemodule6_be.controller;
 
+import com.casemodule6_be.dto.AccountDTO;
 import com.casemodule6_be.dto.AccountToken;
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.service.impl.AccountService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping
 public class LoginController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -32,7 +34,7 @@ public class LoginController {
 
         String token = jwtService.createToken(authentication);
         Account account1 = accountService.findAccountByName(account.getName());
-        AccountToken accountToken = new AccountToken(account1.getName(),account1.getPhone(),token,account1.getRoles());
+        AccountToken accountToken = new AccountToken(account1.getId(), account1.getName(),account1.getPhone(),account1.getEmail(), token,account1.getRoles());
         return accountToken;
     }
 }
