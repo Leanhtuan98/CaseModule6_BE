@@ -18,6 +18,7 @@ public class Orders {
 
     @ManyToOne
     private Account account;
-    private Boolean status;
+
+    private boolean status;
 
 }

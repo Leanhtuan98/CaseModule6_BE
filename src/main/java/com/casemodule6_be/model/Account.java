@@ -16,7 +16,10 @@ public class Account {
     private String phone;
     private String email;
     private String avatar;
+
     @ManyToMany
     private List<Role> roles;
-    private Boolean status;
+
+    private boolean status;
+
 }

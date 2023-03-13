@@ -5,4 +5,5 @@ import com.casemodule6_be.model.Comment;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ICategoryRepo extends PagingAndSortingRepository<Category,Long> {
+
 }
