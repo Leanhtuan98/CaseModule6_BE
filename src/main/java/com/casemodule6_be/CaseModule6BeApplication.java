@@ -16,5 +16,3 @@ public class CaseModule6BeApplication {
         return new ModelMapper();
     }
 }
-
-

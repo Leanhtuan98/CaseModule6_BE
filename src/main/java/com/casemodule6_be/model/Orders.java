@@ -17,6 +17,7 @@ public class Orders {
     private int amountDay;
 
     @ManyToOne
+    @JoinColumn(name = "accountId")
     private Account account;
 
     private boolean status;

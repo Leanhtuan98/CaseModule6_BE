@@ -8,15 +8,15 @@ import com.casemodule6_be.repository.IImageRepo;
 import com.casemodule6_be.repository.IRoomRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import java.util.stream.Collectors;
 
-
 @Service
-
 public class RoomService {
     @Autowired
     IRoomRepo iRoomRepo;
@@ -37,7 +37,7 @@ public String findCategoryName(long idCategory){
         List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
                 .collect(Collectors.toList());
         for (int i = 0; i < roomSFGDtoList.size(); i++) {
-            List<Image> images = iImageRepo.findImageByRoom_Id(roomSFGDtoList.get(i).getId());
+            List<Image> images = iImageRepo.findImageByRoomId(roomSFGDtoList.get(i).getId());
             roomSFGDtoList.get(i).setImg(images.get(0).getName());
             roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
         }
@@ -56,13 +56,29 @@ public String findCategoryName(long idCategory){
         List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
                 .collect(Collectors.toList());
         for (int i = 0; i < roomSFGDtoList.size(); i++) {
-            List<Image> images = iImageRepo.findImageByRoom_Id(roomSFGDtoList.get(i).getId());
+            List<Image> images = iImageRepo.findImageByRoomId(roomSFGDtoList.get(i).getId());
             roomSFGDtoList.get(i).setImg(images.get(0).getName());
             roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
         }
         return roomSFGDtoList;
     }
-    public Room findRoomById(Long id){return iRoomRepo.findById(id).get();}
+    public Room findRoomByid(Long id){return iRoomRepo.findById(id).get();}
+
+    public Room save(Room room) {
+        return iRoomRepo.save(room);
+    }
+
+    public void delete(Long Id) {
+        iRoomRepo.deleteById(Id);
+    }
+
+    public Room findByName(String name) {
+        return iRoomRepo.findByName(name);
+    }
+
+    public Page<Room> pageRoom(Pageable pageable) {
+        return (Page<Room>) iRoomRepo.findAll(pageable);
+    }
 
 
 

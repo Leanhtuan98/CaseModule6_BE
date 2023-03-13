@@ -42,15 +42,15 @@ public class RoomController {
     @Autowired
     ImageService imageService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RoomDetails> findById(@PathVariable Long id) {
-        RoomDetails roomdetails = new RoomDetails();
-        Room room = roomService.findRoomById(id);
-        roomdetails.setRoom(room);
-        roomdetails.setComments(commentService.findCommentByRoom(room));
-        roomdetails.setImg(imageService.findImgByRoom(room));
-        return new ResponseEntity<>(roomdetails, HttpStatus.OK);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<RoomDetails> findById(@PathVariable Long id) {
+//        RoomDetails roomdetails = new RoomDetails();
+//        Room room = roomService.findRoomById(id);
+//        roomdetails.setRoom(room);
+//        roomdetails.setComments(commentService.findCommentByRoom(room));
+//        roomdetails.setImg(imageService.findImgByRoom(room));
+//        return new ResponseEntity<>(roomdetails, HttpStatus.OK);
+//    }
 
 }
 

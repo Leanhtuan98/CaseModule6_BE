@@ -12,13 +12,7 @@ import java.util.List;
 public interface IImageRepo extends PagingAndSortingRepository<Image, Long> {
 
 
-    List<Image> findImageByRoom_Id(Long Idroom);
+    List<Image> findImageByRoomId(Long Idroom);
 
     List<Image> findImageByRoom(Room room);
 }
-
-
-
-
-
-

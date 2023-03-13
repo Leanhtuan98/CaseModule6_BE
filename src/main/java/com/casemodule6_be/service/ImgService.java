@@ -12,6 +12,6 @@ public class ImgService {
     @Autowired
     IImageRepo iImageRepo;
     public List<Image> findImgByIdRoom(Long idRoom){
-        return iImageRepo.findImageByRoom_Id(idRoom);
+        return iImageRepo.findImageByRoomId(idRoom);
     }
 }
