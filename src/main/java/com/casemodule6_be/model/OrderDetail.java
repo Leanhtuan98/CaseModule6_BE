@@ -22,6 +22,7 @@ public class OrderDetail {
     @ManyToOne
     private Orders order;
 
-    private Boolean status;
+    private boolean status;
+
 
 }

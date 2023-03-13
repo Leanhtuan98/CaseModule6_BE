@@ -3,6 +3,7 @@ import com.casemodule6_be.model.Image;
 //import com.casemodule6_be.repository.IIMageRepo;
 import com.casemodule6_be.model.Room;
 //import com.casemodule6_be.repository.IImageRepo;
+import com.casemodule6_be.repository.IImageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,6 @@ public class ImageService {
     public List<Image> findImageByRoomId(Long id){
         return iiMageRepo.findImageByRoomId(id);
     }
+    public List<Image> findImgByRoom(Room room){ return iiMageRepo.findImageByRoom(room);}
 
 }

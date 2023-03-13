@@ -35,11 +35,11 @@ public class PostController {
     @Autowired
     private AddressService addressService;
 
-    @GetMapping()
-    public List<RoomHostDto> getRooms(@RequestParam Long accountId) {
-
-        return roomService.roomToRoomHostDto(accountId);
-    }
+//    @GetMapping()
+//    public List<RoomHostDto> getRooms(@RequestParam Long accountId) {
+//
+//        return roomService.roomToRoomHostDto(accountId);
+//    }
 
 //    @GetMapping
 //public ResponseEntity<String>sayHello(){

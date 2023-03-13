@@ -20,9 +20,12 @@ public class Room {
     private Account account;
     @ManyToOne
     private Category category;
-    private Boolean status;
+
     @ManyToOne
     private Address address;
+
+    private boolean status;
+
 
     public Room() {
     }

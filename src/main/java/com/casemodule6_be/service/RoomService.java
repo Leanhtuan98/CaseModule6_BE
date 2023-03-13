@@ -1,45 +1,68 @@
 package com.casemodule6_be.service;
 
+import com.casemodule6_be.dto.RoomSFGDto;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
-import com.casemodule6_be.dto.RoomHostDto;
+import com.casemodule6_be.repository.ICategoryRepo;
+import com.casemodule6_be.repository.IImageRepo;
 import com.casemodule6_be.repository.IRoomRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
     @Autowired
-    private ModelMapper modelMapper;
+    IRoomRepo iRoomRepo;
     @Autowired
-    private IRoomRepo iRoomRepo;
-    @Autowired
-    private ImageService imageService;
+    IImageRepo iImageRepo;
 
-    public List<Room> list() {
+    @Autowired
+    ICategoryRepo iCategoryRepo;
+
+    @Autowired
+    ModelMapper modelMapper;
+
+public String findCategoryName(long idCategory){
+   return iRoomRepo.findCategoryName(idCategory);
+}
+    public List<RoomSFGDto> getRoomForGuest() {
+        List<Room> rooms = listRoom();
+        List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
+                .collect(Collectors.toList());
+        for (int i = 0; i < roomSFGDtoList.size(); i++) {
+            List<Image> images = iImageRepo.findImageByRoomId(roomSFGDtoList.get(i).getId());
+            roomSFGDtoList.get(i).setImg(images.get(0).getName());
+            roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
+        }
+
+        return roomSFGDtoList;
+    }
+
+
+    public List<Room> listRoom() {
         return (List<Room>) iRoomRepo.findAll();
     }
 
-    public List<Room> findByAccountId(Long accountId){
-        return iRoomRepo.findByAccountId(accountId);
-    }
-    public List<RoomHostDto> roomToRoomHostDto(Long accountId) {
-         List<Room> rooms = findByAccountId(accountId);
-        List<RoomHostDto> roomHostDtoList =  rooms.stream().map(room -> modelMapper.map(room, RoomHostDto.class))
+
+    public List<RoomSFGDto> find(String categoryName, String addressName, double price1, double price2, String checkin, String checkout) {
+        List<Room> rooms = iRoomRepo.findAll(categoryName, addressName, price1, price2, checkin,checkout);
+        List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
                 .collect(Collectors.toList());
-
-        for (RoomHostDto roomHostDto: roomHostDtoList) {
-            List<Image> images = imageService.findImageByRoomId(roomHostDto.getId());
-            roomHostDto.setImg(images.get(0).getName());
+        for (int i = 0; i < roomSFGDtoList.size(); i++) {
+            List<Image> images = iImageRepo.findImageByRoomId(roomSFGDtoList.get(i).getId());
+            roomSFGDtoList.get(i).setImg(images.get(0).getName());
+            roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
         }
-
-        return roomHostDtoList ;
+        return roomSFGDtoList;
     }
+    public Room findRoomByid(Long id){return iRoomRepo.findById(id).get();}
 
     public Room save(Room room) {
         return iRoomRepo.save(room);
@@ -56,8 +79,6 @@ public class RoomService {
     public Page<Room> pageRoom(Pageable pageable) {
         return (Page<Room>) iRoomRepo.findAll(pageable);
     }
-    public Room findRoomByid(Long id){return iRoomRepo.findById(id).get();}
-
 
 
 

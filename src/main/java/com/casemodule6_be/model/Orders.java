@@ -19,6 +19,9 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;
-    private Boolean status;
+
+    private boolean status;
+
+
 
 }

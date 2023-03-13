@@ -2,10 +2,9 @@ package com.casemodule6_be.dto;
 
 import com.casemodule6_be.model.*;
 
-import javax.persistence.ManyToOne;
 import java.util.List;
 
-public class Roomdetails {
+public class RoomDetails {
    private Room room;
     private List<Comment> comments;
     private List<Image> img;
@@ -35,10 +34,10 @@ public class Roomdetails {
         this.img = img;
     }
 
-    public Roomdetails() {
+    public RoomDetails() {
     }
 
-    public Roomdetails(Room room, List<Comment> comments, List<Image> img) {
+    public RoomDetails(Room room, List<Comment> comments, List<Image> img) {
         this.room = room;
         this.comments = comments;
         this.img = img;
