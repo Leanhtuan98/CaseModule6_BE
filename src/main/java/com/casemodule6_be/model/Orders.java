@@ -14,11 +14,10 @@ public class Orders {
     private Long id;
     private Date date;
     private Double total;
-    private int amountDay;
 
     @ManyToOne
-    @JoinColumn(name = "accountId")
     private Account account;
-    private Boolean status;
+    private boolean status;
+
 
 }

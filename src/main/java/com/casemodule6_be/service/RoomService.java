@@ -1,6 +1,10 @@
 package com.casemodule6_be.service;
+
+import com.casemodule6_be.dto.RoomHostDto;
+import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
+import com.casemodule6_be.repository.IImageRepo;
 import com.casemodule6_be.dto.RoomHostDto;
 import com.casemodule6_be.repository.IRoomRepo;
 import org.modelmapper.ModelMapper;
@@ -8,17 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 public class RoomService {
     @Autowired
-    private ModelMapper modelMapper;
+    ModelMapper modelMapper;
     @Autowired
-    private IRoomRepo iRoomRepo;
+    IRoomRepo iRoomRepo;
     @Autowired
-    private ImageService imageService;
+    ImageService imageService;
+    @Autowired
+    IImageRepo iImageRepo;
+
 
     public List<Room> list() {
         return (List<Room>) iRoomRepo.findAll();
@@ -28,7 +37,7 @@ public class RoomService {
         return iRoomRepo.findTopListRent();
     }
     public Room findRoomById(Long id){return iRoomRepo.findById(id).get();}
-    
+
     public List<Room> findByAccountId(Long accountId){
         return iRoomRepo.findByAccountId(accountId);
     }
@@ -58,11 +67,7 @@ public class RoomService {
     }
 
     public Page<Room> pageRoom(Pageable pageable) {
-        return (Page<Room>) iRoomRepo.findAll(pageable);
-    }
+        return (Page<Room>) iRoomRepo.findAll(pageable);}
 
-    public Room findRoomByid(Long id) {
-        return iRoomRepo.findById(id).get();
-    }
 
 }

@@ -14,5 +14,6 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    private boolean status;
 
 }

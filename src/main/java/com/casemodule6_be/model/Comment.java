@@ -12,9 +12,12 @@ public class Comment {
     private Long id;
     private String content;
     private int rating;
+
     @ManyToOne
     private Account account;
     @ManyToOne
     private Room room;
+
+    private boolean status;
 
 }
