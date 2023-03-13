@@ -1,8 +1,9 @@
 package com.casemodule6_be.service;
 
-import com.casemodule6_be.dto.RoomHostDto;
+import com.casemodule6_be.dto.RoomSFGDto;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
+import com.casemodule6_be.repository.ICategoryRepo;
 import com.casemodule6_be.repository.IImageRepo;
 import com.casemodule6_be.repository.IRoomRepo;
 import org.modelmapper.ModelMapper;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
+
 
 @Service
 
@@ -21,19 +24,25 @@ public class RoomService {
     IImageRepo iImageRepo;
 
     @Autowired
+    ICategoryRepo iCategoryRepo;
+
+    @Autowired
     ModelMapper modelMapper;
 
-
-    public List<RoomHostDto> getRoomForGuest() {
+public String findCategoryName(long idCategory){
+   return iRoomRepo.findCategoryName(idCategory);
+}
+    public List<RoomSFGDto> getRoomForGuest() {
         List<Room> rooms = listRoom();
-        List<RoomHostDto> roomHostDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomHostDto.class))
+        List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
                 .collect(Collectors.toList());
-        for (int i = 0; i < roomHostDtoList.size(); i++) {
-            List<Image> images = iImageRepo.findImageByRoom_Id(roomHostDtoList.get(i).getId());
-            roomHostDtoList.get(i).setImg(images.get(0).getName());
+        for (int i = 0; i < roomSFGDtoList.size(); i++) {
+            List<Image> images = iImageRepo.findImageByRoom_Id(roomSFGDtoList.get(i).getId());
+            roomSFGDtoList.get(i).setImg(images.get(0).getName());
+            roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
         }
 
-        return roomHostDtoList ;
+        return roomSFGDtoList;
     }
 
 
@@ -42,16 +51,19 @@ public class RoomService {
     }
 
 
-    public List<RoomHostDto> find(String categoryName, String addressName, double giatri1, double giatri2) {
-        List<Room> rooms = iRoomRepo.findAllByCategory_NameAndAddress_NameAndPriceBetween(categoryName, addressName, giatri1, giatri2);
-        List<RoomHostDto> roomHostDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomHostDto.class))
+    public List<RoomSFGDto> find(String categoryName, String addressName, double price1, double price2, String checkin, String checkout) {
+        List<Room> rooms = iRoomRepo.findAll(categoryName, addressName, price1, price2, checkin,checkout);
+        List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
                 .collect(Collectors.toList());
-        for (int i = 0; i < roomHostDtoList.size(); i++) {
-            List<Image> images = iImageRepo.findImageByRoom_Id(roomHostDtoList.get(i).getId());
-            roomHostDtoList.get(i).setImg(images.get(0).getName());
+        for (int i = 0; i < roomSFGDtoList.size(); i++) {
+            List<Image> images = iImageRepo.findImageByRoom_Id(roomSFGDtoList.get(i).getId());
+            roomSFGDtoList.get(i).setImg(images.get(0).getName());
+            roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
         }
-        return roomHostDtoList;
+        return roomSFGDtoList;
     }
+    public Room findRoomById(Long id){return iRoomRepo.findById(id).get();}
+
 
 
 }

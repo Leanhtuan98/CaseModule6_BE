@@ -18,6 +18,7 @@ public class Comment {
     @ManyToOne
     private Room room;
 
+
     private boolean status;
 
 }

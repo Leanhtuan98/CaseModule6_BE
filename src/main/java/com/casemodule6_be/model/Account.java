@@ -19,5 +19,7 @@ public class Account {
 
     @ManyToMany
     private List<Role> roles;
+
     private boolean status;
+
 }

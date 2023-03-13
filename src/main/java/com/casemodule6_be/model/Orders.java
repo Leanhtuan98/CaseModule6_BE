@@ -14,10 +14,13 @@ public class Orders {
     private Long id;
     private Date date;
     private Double total;
+    private int amountDay;
 
     @ManyToOne
     private Account account;
+
     private boolean status;
+
 
 
 }

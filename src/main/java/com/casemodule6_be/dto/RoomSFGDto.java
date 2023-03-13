@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 
 @Data
-public class RoomHostDto {
+public class RoomSFGDto {
     private long id;
     private String name;
     private double price;
@@ -16,11 +16,13 @@ public class RoomHostDto {
     private Boolean status;
     private String img;
 
-    public RoomHostDto(){
+
+
+    public RoomSFGDto() {
 
     }
 
-    public RoomHostDto(long id, String name, double price, String addressRoom, String category, String description, Boolean status, String img) {
+    public RoomSFGDto(long id, String name, double price, String addressRoom, String category, String description, Boolean status, String img) {
         this.id = id;
         this.name = name;
         this.price = price;
