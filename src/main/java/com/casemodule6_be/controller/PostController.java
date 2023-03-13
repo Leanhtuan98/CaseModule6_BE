@@ -4,7 +4,6 @@ import com.casemodule6_be.model.Address;
 import com.casemodule6_be.model.Category;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
-import com.casemodule6_be.dto.RoomHostDto;
 import com.casemodule6_be.service.AddressService;
 import com.casemodule6_be.service.CategoryService;
 import com.casemodule6_be.service.ImageService;
@@ -35,11 +34,7 @@ public class PostController {
     @Autowired
     private AddressService addressService;
 
-    @GetMapping()
-    public List<RoomHostDto> getRooms(@RequestParam Long accountId) {
 
-        return roomService.roomToRoomHostDto(accountId);
-    }
 
 //    @GetMapping
 //public ResponseEntity<String>sayHello(){

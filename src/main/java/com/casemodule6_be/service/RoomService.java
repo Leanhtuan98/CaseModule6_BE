@@ -1,7 +1,8 @@
 package com.casemodule6_be.service;
 
-import com.casemodule6_be.dto.RoomHostDto;
+//import com.casemodule6_be.dto.RoomHostDto;
 import com.casemodule6_be.dto.RoomProjection;
+import com.casemodule6_be.dto.RoomSFGDto;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.repository.IImageRepo;
@@ -42,18 +43,18 @@ public class RoomService {
     public List<Room> findByAccountId(Long accountId){
         return iRoomRepo.findByAccountId(accountId);
     }
-    public List<RoomHostDto> roomToRoomHostDto(Long accountId) {
-         List<Room> rooms = findByAccountId(accountId);
-        List<RoomHostDto> roomHostDtoList =  rooms.stream().map(room -> modelMapper.map(room, RoomHostDto.class))
-                .collect(Collectors.toList());
-
-        for (RoomHostDto roomHostDto: roomHostDtoList) {
-            List<Image> images = imageService.findImageByRoomId(roomHostDto.getId());
-            roomHostDto.setImg(images.get(0).getName());
-        }
-
-        return roomHostDtoList ;
-    }
+//    public List<RoomHostDto> roomToRoomHostDto(Long accountId) {
+//         List<Room> rooms = findByAccountId(accountId);
+//        List<RoomHostDto> roomHostDtoList =  rooms.stream().map(room -> modelMapper.map(room, RoomHostDto.class))
+//                .collect(Collectors.toList());
+//
+//        for (RoomHostDto roomHostDto: roomHostDtoList) {
+//            List<Image> images = imageService.findImageByRoomId(roomHostDto.getId());
+//            roomHostDto.setImg(images.get(0).getName());
+//        }
+//
+//        return roomHostDtoList ;
+//    }
 
     public Room save(Room room) {
         return iRoomRepo.save(room);
@@ -71,6 +72,43 @@ public class RoomService {
         return (Page<Room>) iRoomRepo.findAll(pageable);}
 
     public Room findRoomByid(Long id){return iRoomRepo.findById(id).get();}
+    public String findCategoryName(long idCategory){
+        return iRoomRepo.findCategoryName(idCategory);
+    }
+    public List<RoomSFGDto> getRoomForGuest() {
+        List<Room> rooms = listRoom();
+        List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
+                .collect(Collectors.toList());
+        for (int i = 0; i < roomSFGDtoList.size(); i++) {
+            List<Image> images = iImageRepo.findImageByRoom_Id(roomSFGDtoList.get(i).getId());
+            roomSFGDtoList.get(i).setImg(images.get(0).getName());
+            roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
+        }
+
+        return roomSFGDtoList;
+    }
+
+
+    public List<Room> listRoom() {
+        return (List<Room>) iRoomRepo.findAll();
+    }
+
+
+    public List<RoomSFGDto> find(String categoryName, String addressName, double price1, double price2, String checkin, String checkout) {
+        List<Room> rooms = iRoomRepo.findAll(categoryName, addressName, price1, price2, checkin,checkout);
+        List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
+                .collect(Collectors.toList());
+        for (int i = 0; i < roomSFGDtoList.size(); i++) {
+            List<Image> images = iImageRepo.findImageByRoom_Id(roomSFGDtoList.get(i).getId());
+            roomSFGDtoList.get(i).setImg(images.get(0).getName());
+            roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
+        }
+        return roomSFGDtoList;
+    }
+
+
+
+
 
 
 }

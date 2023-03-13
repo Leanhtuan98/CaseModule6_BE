@@ -1,23 +1,28 @@
 package com.casemodule6_be.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-public class RoomHostDto {
+public class RoomSFGDto {
     private long id;
     private String name;
+    private double price;
     private String addressRoom;
+    private String category;
+    private String description;
     private Boolean status;
     private String img;
 
-    public RoomHostDto() {
+
+
+    public RoomSFGDto() {
+
     }
 
-    public RoomHostDto(long id, String name, String addressRoom, Boolean status, String img) {
+    public RoomSFGDto(long id, String name, double price, String addressRoom, String category, String description, Boolean status, String img) {
         this.id = id;
         this.name = name;
+        this.price = price;
         this.addressRoom = addressRoom;
+        this.category = category;
+        this.description = description;
         this.status = status;
         this.img = img;
     }
@@ -38,12 +43,36 @@ public class RoomHostDto {
         this.name = name;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public String getAddressRoom() {
         return addressRoom;
     }
 
     public void setAddressRoom(String addressRoom) {
         this.addressRoom = addressRoom;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getStatus() {
