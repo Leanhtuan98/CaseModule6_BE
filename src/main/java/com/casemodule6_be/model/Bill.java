@@ -16,4 +16,6 @@ public class Bill {
 
     @ManyToOne
     private Account account;
+
+    private boolean status;
 }

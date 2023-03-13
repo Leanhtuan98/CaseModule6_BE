@@ -14,11 +14,13 @@ public class Room {
     private Double price;
     private String description;
     private String addressRoom;
-    @ManyToOne
+
+    @ManyToOne()
     private Account account;
     @ManyToOne
     private Category category;
 
     @ManyToOne
     private Address address;
+    private boolean status;
 }
