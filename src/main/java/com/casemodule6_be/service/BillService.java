@@ -4,8 +4,6 @@ import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.repository.IBillRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.casemodule6_be.dto.BillProjection;
-import com.casemodule6_be.repository.IBillRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
