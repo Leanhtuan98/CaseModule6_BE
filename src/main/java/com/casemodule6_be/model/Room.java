@@ -1,8 +1,10 @@
 package com.casemodule6_be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,8 +20,12 @@ public class Room {
     private Account account;
     @ManyToOne
     private Category category;
-
+    private Boolean status;
     @ManyToOne
     private Address address;
-    private Boolean status;
+
+    public Room() {
+    }
+
+
 }

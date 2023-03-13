@@ -46,7 +46,7 @@ public class RegisterController {
                 Role role = new Role();
                 role.setId(2L);
                 roles.add(role);
-                emailService.sendEmail(account.getEmail(),"Thông báo","Tài khoản "+ account.getName()+ " đã được đăng kí.");
+                emailService.sendEmail(account.getEmail(),"Thông báo","Tài khoản "+ account.getName()+ " đã được đăng kí với mật khẩu là :" + account.getPassword());
                 accountService.save(accountCreate);
                 Account account1 = accountService.findAccountByName(account.getName());
                 account1.setRoles(roles);
@@ -63,28 +63,3 @@ public class RegisterController {
         }
     }
 }
-
-
-//    @GetMapping("/findAccountByName")
-//    public ResponseEntity<Account> findAccountByName(@RequestParam String name) {
-//        return new ResponseEntity<>(accountService.findAccountByName(name), HttpStatus.OK);
-//    }
-//}
-//    @PostMapping
-//    public ResponseEntity<Account> save(@RequestBody Account account) {
-//        Role role = new Role();
-//
-//        if (accountService.findAccountByUsername(account.getEmail()) == null ||
-//                accountService.findAccountByPhone(account.getPhone()) == null) {
-//            role.setId(account.getRole().getId());
-//            account.setRole(role);
-//            account.setAvatar("https://i.pinimg.com/236x/16/b2/e2/16b2e2579118bf6fba3b56523583117f.jpg");
-//            account.setStatus(false);
-//
-//            sendEmailService.sendMail(account.getEmail(), "Thông báo","Tài khoản "+ account.getName()+ " đã được đăng kí." +
-//                    "Xin chờ hệ thống xác nhân từ 1 đến 2 ngày");
-//            accountService.save(account);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
