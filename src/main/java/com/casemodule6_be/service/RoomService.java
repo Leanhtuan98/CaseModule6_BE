@@ -72,5 +72,7 @@ public class RoomService {
     public Page<Room> pageRoom(Pageable pageable) {
         return (Page<Room>) iRoomRepo.findAll(pageable);}
 
+    public Room findRoomByid(Long id){return iRoomRepo.findById(id).get();}
+
 
 }
