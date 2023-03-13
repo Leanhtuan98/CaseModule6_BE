@@ -1,4 +1,4 @@
-package com.casemodule6_be.model.dto;
+package com.casemodule6_be.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

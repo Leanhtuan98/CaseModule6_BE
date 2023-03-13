@@ -2,7 +2,7 @@ package com.casemodule6_be.service;
 
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
-import com.casemodule6_be.model.dto.RoomHostDto;
+import com.casemodule6_be.dto.RoomHostDto;
 import com.casemodule6_be.repository.IRoomRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
