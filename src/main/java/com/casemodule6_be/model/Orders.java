@@ -14,8 +14,10 @@ public class Orders {
     private Long id;
     private Date date;
     private Double total;
-    private Double deposit;
+    private int amountDay;
+
     @ManyToOne
     private Account account;
+    private Boolean status;
 
 }

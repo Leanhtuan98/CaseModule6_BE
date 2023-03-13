@@ -15,4 +15,6 @@ public class Bill {
     private Double total;
     @ManyToOne
     private Account account;
+    private Boolean status;
+
 }

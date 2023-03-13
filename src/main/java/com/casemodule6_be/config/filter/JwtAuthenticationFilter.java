@@ -1,7 +1,7 @@
 package com.casemodule6_be.config.filter;
 
-import com.casemodule6_be.service.impl.AccountService;
-import com.casemodule6_be.service.impl.JwtService;
+import com.casemodule6_be.service.AccountService;
+import com.casemodule6_be.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

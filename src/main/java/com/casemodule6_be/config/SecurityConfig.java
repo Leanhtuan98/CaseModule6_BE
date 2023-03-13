@@ -1,7 +1,7 @@
 package com.casemodule6_be.config;
 
 import com.casemodule6_be.config.filter.JwtAuthenticationFilter;
-import com.casemodule6_be.service.impl.AccountService;
+import com.casemodule6_be.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    // xắc thực
+    // xác thực
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(accountService).passwordEncoder(NoOpPasswordEncoder.getInstance());

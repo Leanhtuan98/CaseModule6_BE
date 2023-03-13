@@ -1,4 +1,4 @@
-package com.casemodule6_be.service.impl;
+package com.casemodule6_be.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

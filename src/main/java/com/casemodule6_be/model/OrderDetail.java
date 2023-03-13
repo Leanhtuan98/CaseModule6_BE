@@ -18,4 +18,7 @@ public class OrderDetail {
     private Room room;
     @ManyToOne
     private Orders order;
+
+    private Boolean status;
+
 }

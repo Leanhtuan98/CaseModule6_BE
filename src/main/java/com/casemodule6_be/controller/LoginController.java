@@ -1,10 +1,9 @@
 package com.casemodule6_be.controller;
 
-import com.casemodule6_be.dto.AccountDTO;
 import com.casemodule6_be.dto.AccountToken;
 import com.casemodule6_be.model.Account;
-import com.casemodule6_be.service.impl.AccountService;
-import com.casemodule6_be.service.impl.JwtService;
+import com.casemodule6_be.service.AccountService;
+import com.casemodule6_be.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

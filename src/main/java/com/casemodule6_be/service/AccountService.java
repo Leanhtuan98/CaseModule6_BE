@@ -1,4 +1,4 @@
-package com.casemodule6_be.service.impl;
+package com.casemodule6_be.service;
 
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.repository.IAccountRepo;
@@ -65,4 +65,5 @@ public class AccountService implements UserDetailsService {
     public Account findAccountByEmail(String email) {
         return iAccountRepo.findAccountByEmail(email);
     }
+
 }

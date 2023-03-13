@@ -17,4 +17,6 @@ public class AccountToken {
 
     private List<Role> roles;
 
+    public AccountToken() {
+    }
 }

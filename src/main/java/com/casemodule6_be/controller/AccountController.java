@@ -2,14 +2,15 @@ package com.casemodule6_be.controller;
 
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.dto.ChangePassword;
-import com.casemodule6_be.service.impl.AccountService;
-import com.casemodule6_be.service.impl.JwtService;
+import com.casemodule6_be.service.AccountService;
+import com.casemodule6_be.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.parameters.P;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,12 +75,16 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> findAccountById(@PathVariable Long id) {
+    public ResponseEntity<Account> findById(@PathVariable Long id) {
         Optional<Account> account = accountService.findById(id);
         if (account.isPresent()) {
             return new ResponseEntity<>(account.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/{name}")
+    public ResponseEntity<Account> findByName(@PathVariable String name) {
+        return new ResponseEntity<>(accountService.findAccountByName(name),HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

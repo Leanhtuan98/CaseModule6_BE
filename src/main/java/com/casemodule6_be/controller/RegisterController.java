@@ -4,8 +4,8 @@ import com.casemodule6_be.dto.RegisterForm;
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.model.Role;
 import com.casemodule6_be.service.EmailService;
-import com.casemodule6_be.service.impl.AccountService;
-import com.casemodule6_be.service.impl.JwtService;
+import com.casemodule6_be.service.AccountService;
+import com.casemodule6_be.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,13 +42,11 @@ public class RegisterController {
                 accountCreate.setEmail(account.getEmail());
                 accountCreate.setPhone(account.getPhone());
                 accountCreate.setAvatar("images/avatar/d5e500cc4db9a1b28372cd9d9166ea89.jpg");
-                emailService.sendEmail(account.getEmail(),"Thông báo","Tài khoản "+ account.getName()+ " đã được đăng kí." +
-                    "Xin chờ hệ thống xác nhân từ 1 đến 2 ngày");
                 List<Role> roles = new ArrayList<>();
                 Role role = new Role();
                 role.setId(2L);
                 roles.add(role);
-
+                emailService.sendEmail(account.getEmail(),"Thông báo","Tài khoản "+ account.getName()+ " đã được đăng kí.");
                 accountService.save(accountCreate);
                 Account account1 = accountService.findAccountByName(account.getName());
                 account1.setRoles(roles);

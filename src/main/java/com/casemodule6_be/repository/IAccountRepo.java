@@ -12,10 +12,13 @@ import java.util.Optional;
 public interface IAccountRepo extends PagingAndSortingRepository<Account, Long> {
     Optional<Account> findByName(String name);
     Optional<Account> findByPhone(String phone);
-    Account findAccountByName(String username);
+    Account findAccountByName(String name);
+
     Account findAccountByEmail(String email);
     Account findByEmail(String email);
     Page<Account> findAccountByNameContaining(Pageable pageable, String name);
 
     Page<Account> findAccountByRoles_Id(Pageable pageable, Long id);
+
+
 }
