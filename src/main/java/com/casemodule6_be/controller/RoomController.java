@@ -25,7 +25,6 @@ public class RoomController {
     RoomService roomService;
 
     @GetMapping("/showRoomForGuest")
-
     public List<RoomSFGDto> showRoomForGuest() {
         return roomService.getRoomForGuest();
     }
