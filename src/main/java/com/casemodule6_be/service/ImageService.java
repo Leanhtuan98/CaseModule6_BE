@@ -12,5 +12,5 @@ import java.util.List;
 public class ImageService {
     @Autowired
     IImageRepo iImageRepo;
-    public List<Image> findImgbyRoom(Room room){ return iImageRepo.findImageByRoom(room);}
+    public List<Image> findImgByRoom(Room room){ return iImageRepo.findImageByRoom(room);}
 }
