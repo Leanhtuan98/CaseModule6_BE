@@ -1,7 +1,8 @@
 package com.casemodule6_be.controller;
 
+
 import com.casemodule6_be.dto.RoomDetails;
-import com.casemodule6_be.dto.RoomProjection;
+
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.service.CommentService;
 import com.casemodule6_be.service.ImageService;
@@ -11,11 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/rooms")
+
 
 public class RoomController {
     @Autowired
@@ -24,12 +27,6 @@ public class RoomController {
     CommentService commentService;
     @Autowired
     ImageService imageService;
-
-
-    @GetMapping("/topRent")
-    public List<RoomProjection> getTopRent(){
-        return roomService.findTopRent();
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<RoomDetails> findById(@PathVariable Long id) {
@@ -40,7 +37,6 @@ public class RoomController {
         roomdetails.setImg(imageService.findImgByRoom(room));
         return new ResponseEntity<>(roomdetails, HttpStatus.OK);
     }
+
 }
-
-
 

@@ -14,6 +14,7 @@ public class Image {
     private String name;
     @ManyToOne
     private Room room;
+
     private boolean status;
 
 }

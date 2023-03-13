@@ -18,4 +18,5 @@ public class BillDetail {
     private Room room;
 
     private boolean status;
+
 }
