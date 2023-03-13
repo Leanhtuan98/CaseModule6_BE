@@ -18,7 +18,9 @@ public class ImageService {
     }
 
 
-    public List<Image> findImgbyRoom(Room room){ return iiMageRepo.findImageByRoom(room);}
+    public List<Image> findImgByRoom(Room room){
+        return iiMageRepo.findImageByRoom(room);
+    }
 
     public List<Image> findImageByRoomId(Long id){
         return iiMageRepo.findImageByRoomId(id);

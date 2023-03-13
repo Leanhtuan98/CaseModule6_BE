@@ -1,6 +1,7 @@
 package com.casemodule6_be.service;
 
 import com.casemodule6_be.dto.RoomHostDto;
+import com.casemodule6_be.dto.RoomProjection;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
@@ -29,13 +30,15 @@ public class RoomService {
     IImageRepo iImageRepo;
 
 
-    public List<Room> list() {
+    public List<RoomProjection> findTopRent(){
+        return iRoomRepo.findTopRent();
+    }
+
+    public List<Room> list(){
         return (List<Room>) iRoomRepo.findAll();
     }
 
-    public List<?> findTopListRent(){
-        return iRoomRepo.findTopListRent();
-    }
+
     public Room findRoomById(Long id){return iRoomRepo.findById(id).get();}
 
     public List<Room> findByAccountId(Long accountId){
