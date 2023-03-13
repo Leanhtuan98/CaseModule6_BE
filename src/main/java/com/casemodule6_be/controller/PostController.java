@@ -3,8 +3,8 @@ package com.casemodule6_be.controller;
 import com.casemodule6_be.model.Address;
 import com.casemodule6_be.model.Category;
 import com.casemodule6_be.model.Image;
-import com.casemodule6_be.model.Room;
 import com.casemodule6_be.dto.RoomHostDto;
+import com.casemodule6_be.model.Room;
 import com.casemodule6_be.service.AddressService;
 import com.casemodule6_be.service.CategoryService;
 import com.casemodule6_be.service.ImageService;
@@ -66,9 +66,10 @@ public class PostController {
 //        return HttpStatus.OK;
 //    }
 
-    @PostMapping(value ="/room" , consumes = {"multipart/form-data"})
-    public HttpStatus saveRoom(@RequestPart("files") MultipartFile[] files,@RequestPart Room room) {
-        roomService.save(room);
+    @PostMapping(value = "/upload/{id}", consumes = {"multipart/form-data"})
+    public HttpStatus saveImg(@RequestPart("files") MultipartFile[] files, @PathVariable long id) {
+
+        Room room = roomService.findRoomByid(id);
         List<Image> imageList = new ArrayList<>();
         for (MultipartFile fileImg : files) {
             String nameImg = fileImg.getOriginalFilename();
@@ -83,8 +84,16 @@ public class PostController {
             }
         }
         imageService.saveAll(imageList);
-        return HttpStatus.OK ;
+        return HttpStatus.OK;
     }
+
+    @PostMapping("/room")
+    public Long saveRoom(@RequestBody Room room) {
+        roomService.save(room);
+        return room.getId();
+    }
+
+
     @DeleteMapping
     public HttpStatus deleteRoom(@RequestParam Long id) {
         roomService.delete(id);
@@ -92,11 +101,12 @@ public class PostController {
     }
 
     @GetMapping("/categories")
-    public List<Category> getAllCategory(){
+    public List<Category> getAllCategory() {
         return categoryService.getAll();
     }
+
     @GetMapping("/address")
-    public List<Address> getAllAddress(){
+    public List<Address> getAllAddress() {
         return addressService.getAll();
     }
 }
