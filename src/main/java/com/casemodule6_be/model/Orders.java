@@ -8,14 +8,17 @@ import java.sql.Date;
 
 @Data
 @Entity
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
     private Double total;
-    private Double deposit;
+    private int amountDay;
+
     @ManyToOne
+    @JoinColumn(name = "accountId")
     private Account account;
+    private Boolean status;
 
 }

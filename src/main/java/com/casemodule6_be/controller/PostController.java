@@ -1,7 +1,12 @@
 package com.casemodule6_be.controller;
 
+import com.casemodule6_be.model.Address;
+import com.casemodule6_be.model.Category;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
+import com.casemodule6_be.model.dto.RoomHostDto;
+import com.casemodule6_be.service.AddressService;
+import com.casemodule6_be.service.CategoryService;
 import com.casemodule6_be.service.ImageService;
 import com.casemodule6_be.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/post")
@@ -24,11 +30,21 @@ public class PostController {
     @Autowired
     private ImageService imageService;
 
-    @GetMapping
-    public List<Room> getRooms(@RequestParam Long accountId) {
-        return roomService.findByAccountId(accountId);
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private AddressService addressService;
+
+    @GetMapping()
+    public List<RoomHostDto> getRooms(@RequestParam Long accountId) {
+
+        return roomService.roomToRoomHostDto(accountId);
     }
 
+//    @GetMapping
+//public ResponseEntity<String>sayHello(){
+//        return ResponseEntity.ok("huy đẹp trai vl");
+//    }
 //    @PostMapping
 //    public HttpStatus saveRoom(Room room) {
 //roomService.save(room);
@@ -50,8 +66,8 @@ public class PostController {
 //        return HttpStatus.OK;
 //    }
 
-    @PostMapping
-    public HttpStatus saveRoom(@RequestPart("files") List<MultipartFile> files,@RequestPart Room room) {
+    @PostMapping(value ="/room" , consumes = {"multipart/form-data"})
+    public HttpStatus saveRoom(@RequestPart("files") MultipartFile[] files,@RequestPart Room room) {
         roomService.save(room);
         List<Image> imageList = new ArrayList<>();
         for (MultipartFile fileImg : files) {
@@ -73,5 +89,14 @@ public class PostController {
     public HttpStatus deleteRoom(@RequestParam Long id) {
         roomService.delete(id);
         return HttpStatus.OK;
+    }
+
+    @GetMapping("/categories")
+    public List<Category> getAllCategory(){
+        return categoryService.getAll();
+    }
+    @GetMapping("/address")
+    public List<Address> getAllAddress(){
+        return addressService.getAll();
     }
 }

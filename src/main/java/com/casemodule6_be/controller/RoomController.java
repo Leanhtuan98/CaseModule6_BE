@@ -1,0 +1,37 @@
+package com.casemodule6_be.controller;
+
+import com.casemodule6_be.dto.Roomdetails;
+import com.casemodule6_be.model.Room;
+import com.casemodule6_be.service.CommentService;
+import com.casemodule6_be.service.ImageService;
+import com.casemodule6_be.service.RoomService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin("*")
+@RequestMapping("/rooms")
+
+public class RoomController {
+    @Autowired
+    RoomService roomService;
+    @Autowired
+    CommentService commentService;
+    @Autowired
+    ImageService imageService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Roomdetails> findById(@PathVariable Long id) {
+        Roomdetails roomdetails = new Roomdetails();
+        Room room = roomService.findRoomByid(id);
+        roomdetails.setRoom(room);
+        roomdetails.setComments(commentService.findCommentByRoom(room));
+        roomdetails.setImg(imageService.findImgbyRoom(room));
+        return new ResponseEntity<>(roomdetails, HttpStatus.OK);
+    }
+}
+
+
+

@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room,Long> {
     void deleteById (Long id);
 
     Room findByName(String name);
+
 
 
 }
