@@ -10,7 +10,7 @@ import java.util.List;
 public interface IBillRepo extends PagingAndSortingRepository<Bill,Long> {
 
     @Query(nativeQuery = true,value = "SELECT (month(bill.date)) as month, (sum(bill.total)) as toTalBill\n" +
-            "FROM bill\n" +
-            "GROUP BY month(bill.date)")
+            "            FROM bill\n" +
+            "            GROUP BY month(bill.date)")
     List<BillProjection> showTotalBill();
 }

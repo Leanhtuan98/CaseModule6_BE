@@ -12,14 +12,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/showTotalBill")
+@RequestMapping("/bill")
 public class ShowTotalBill {
     @Autowired
     BillService billService;
 
-
-
-    @GetMapping
+    @GetMapping("/showBill")
     public List<BillProjection> showTotalBill(){
         return billService.showTotalBill();
     }
