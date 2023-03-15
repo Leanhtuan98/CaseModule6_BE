@@ -52,7 +52,7 @@ public class RoomController {
         return roomService.findTopRent();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/roomDetail/{id}")
     public ResponseEntity<RoomDetails> findById(@PathVariable Long id) {
         RoomDetails roomdetails = new RoomDetails();
         Room room = roomService.findRoomById(id);
