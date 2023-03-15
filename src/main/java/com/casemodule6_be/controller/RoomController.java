@@ -34,11 +34,12 @@ public class RoomController {
     }
 
 
-    @GetMapping("/find/{categoryName}/{addressName}/{price1}/{price2}/{checkin}/{checkout}")
-    public List<RoomSFGDto> find(@PathVariable String categoryName, @PathVariable String addressName,
-                                 @PathVariable double price1, @PathVariable double price2,
-                                 @PathVariable String checkin, @PathVariable String checkout) {
-        return roomService.find(categoryName, addressName, price1, price2, checkin, checkout);
+    @GetMapping("/find/")
+    public List<RoomSFGDto> find(@RequestParam String categoryName, @RequestParam String addressName,
+                                 @RequestParam double price1, @RequestParam double price2,
+                                 @RequestParam String checkin, @RequestParam String checkout) {
+        return roomService.find('%'+categoryName+'%', addressName,
+                price1,price2,checkin,checkout);
     }
 
     @Autowired
