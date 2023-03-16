@@ -1,7 +1,7 @@
 package com.casemodule6_be.service;
 
-import com.casemodule6_be.dto.RoomProjection;
-import com.casemodule6_be.dto.RoomSFGDto;
+import com.casemodule6_be.dto.*;
+import com.casemodule6_be.model.Comment;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.repository.ICategoryRepo;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -38,6 +39,9 @@ public class RoomService {
         public String findCategoryName ( long idCategory){
             return iRoomRepo.findCategoryName(idCategory);
         }
+
+
+
         public List<RoomSFGDto> getRoomForGuest () {
             List<Room> rooms = listRoom();
             List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
@@ -69,6 +73,29 @@ public class RoomService {
             }
             return roomSFGDtoList;
         }
+
+
+
+//    public List<RoomDetailDTO> showRoomDetail(Long id){
+//            List<RoomDetailProjection> roomDetailDTOS = iRoomRepo.showDetail(id);
+//            List<RoomDetailDTO> result = roomDetailDTOS.stream().map(r ->{
+//                List<String> imgs =  Arrays.asList(r.getImage().split(","));
+//                RoomDetailDTO roomDetailDTO = new RoomDetailDTO(r.getId(),r.getName(),
+//                        r.getAddressRoom(),r.getPrice(),imgs, r.getDescription());
+//                return roomDetailDTO;
+//            }).collect(Collectors.toList());
+//            return result;
+//    }
+
+    public RoomDetailProjection showRoomDetail(Long id){
+       return iRoomRepo.showDetail(id);
+    }
+
+
+
+
+
+
         public Room findRoomByid (Long id){
             return iRoomRepo.findById(id).get();
         }
