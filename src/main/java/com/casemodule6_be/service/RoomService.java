@@ -46,10 +46,12 @@ public class RoomService {
             List<Room> rooms = listRoom();
             List<RoomSFGDto> roomSFGDtoList = rooms.stream().map(room -> modelMapper.map(room, RoomSFGDto.class))
                     .collect(Collectors.toList());
-            for (int i = 0; i < roomSFGDtoList.size(); i++) {
-                List<Image> images = iImageRepo.findImageByRoomId(roomSFGDtoList.get(i).getId());
-                roomSFGDtoList.get(i).setImg(images.get(0).getName());
-                roomSFGDtoList.get(i).setCategory(findCategoryName(roomSFGDtoList.get(i).getId()));
+            for (RoomSFGDto roomSFGDto : roomSFGDtoList) {
+                List<Image> images = iImageRepo.findImageByRoomId(roomSFGDto.getId());
+                if (!images.isEmpty()) {
+                    roomSFGDto.setImg(images.get(0).getName());
+                }
+                roomSFGDto.setCategory(findCategoryName(roomSFGDto.getId()));
             }
 
             return roomSFGDtoList;
