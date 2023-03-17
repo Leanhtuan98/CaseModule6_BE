@@ -89,7 +89,7 @@ public class PostController {
 
     @PostMapping("/room/{accountId}")
     public Long saveRoom(@RequestBody Room room, @PathVariable long accountId ) {
-        room.setAccount(accountService.findById(accountId).get());
+        room.setAccount(accountService.findById(accountId));
         roomService.save(room);
         return room.getId();
     }
