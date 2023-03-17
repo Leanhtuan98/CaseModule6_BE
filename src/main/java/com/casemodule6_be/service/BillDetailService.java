@@ -13,7 +13,11 @@ public class BillDetailService {
     @Autowired
     IBillDetailRepo iBillDetailRepo;
 
+
     public List<BillDetail> findBillDetailByBillId(long billId) {
       return   iBillDetailRepo.findAllByBill_Id(billId);
     }
+public List<BillDetail> findSchedule(long roomID){
+        return iBillDetailRepo.findSchedule(roomID);
+}
 }

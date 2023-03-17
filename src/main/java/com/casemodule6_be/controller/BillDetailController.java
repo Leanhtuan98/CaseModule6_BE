@@ -17,4 +17,8 @@ public class BillDetailController {
     public List<BillDetail> findBillDetailByBillId(@RequestParam long billId) {
       return   billDetailService.findBillDetailByBillId(billId);
     }
+    @GetMapping("/schedule/{roomid}")
+    public List<BillDetail> findSchedule(@PathVariable long roomid){
+        return billDetailService.findSchedule(roomid);
+    }
 }
