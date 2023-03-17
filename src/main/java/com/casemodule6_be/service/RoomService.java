@@ -28,8 +28,21 @@ public class RoomService {
     @Autowired
     ICategoryRepo iCategoryRepo;
 
-    public List<RoomProjection> findTopRent() {
-        return iRoomRepo.findTopRent();
+//    public List<RoomProjection> findTopRent() {
+//
+//        return iRoomRepo.findTopRent();
+//    }
+
+
+        public List<RoomDTO> findTopRent(){
+            List<RoomProjection> roomDTOS = iRoomRepo.findTopRent();
+            List<RoomDTO> result = roomDTOS.stream().map(r ->{
+                List<String> imgs =  Arrays.asList(r.getImages().split(","));
+                RoomDTO roomDTO = new RoomDTO(r.getName(),imgs.get(0),
+                        r.getPrice(), r.getId());
+                return roomDTO;
+            }).collect(Collectors.toList());
+            return result;
     }
 
 

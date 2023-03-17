@@ -1,10 +1,7 @@
 package com.casemodule6_be.controller;
 
-import com.casemodule6_be.dto.RoomDetailDTO;
-import com.casemodule6_be.dto.RoomDetailProjection;
-import com.casemodule6_be.dto.RoomProjection;
+import com.casemodule6_be.dto.*;
 
-import com.casemodule6_be.dto.RoomSFGDto;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +43,7 @@ public class RoomController {
 
 
     @GetMapping("/topRent")
-    public List<RoomProjection> getTopRent(){
+    public List<RoomDTO> getTopRent(){
         return roomService.findTopRent();
     }
 
