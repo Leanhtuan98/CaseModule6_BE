@@ -7,10 +7,15 @@ import com.casemodule6_be.service.EmailService;
 import com.casemodule6_be.service.AccountService;
 import com.casemodule6_be.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +29,14 @@ public class RegisterController {
     AccountService accountService;
     @Autowired
     EmailService emailService;
+    @Value("${upload.path}")
+    private String link;
+
+    @Value("${display.path}")
+    private String displayLink;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterForm account) {
+    public ResponseEntity<?> register(@RequestBody RegisterForm account,@RequestPart(value = "fileUpdate", required = false) MultipartFile file) {
         if (account.getName().equals("") || account.getPassword().equals("") || account.getEmail().equals("")) {
             return new ResponseEntity<>("No blank!!!", HttpStatus.CONFLICT);
         }
@@ -41,7 +51,17 @@ public class RegisterController {
                 accountCreate.setPassword(account.getPassword());
                 accountCreate.setEmail(account.getEmail());
                 accountCreate.setPhone(account.getPhone());
-                accountCreate.setAvatar("images/avatar/d5e500cc4db9a1b28372cd9d9166ea89.jpg");
+                if (file != null){
+                    String fileName = file.getOriginalFilename();
+                    try {
+                        FileCopyUtils.copy(file.getBytes(), new File(link + fileName));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    accountCreate.setAvatar(displayLink + fileName);
+                } else {
+                    accountCreate.setAvatar(displayLink + "avatar.jpg");
+                }
                 List<Role> roles = new ArrayList<>();
                 Role role = new Role();
                 role.setId(2L);
@@ -62,4 +82,21 @@ public class RegisterController {
             return new ResponseEntity<>("Email is existed", HttpStatus.CONFLICT);
         }
     }
+//    @PostMapping( "/upAvatar")
+//    public ResponseEntity<Account> UploadAvatar(@RequestPart(value = "file", required = false) MultipartFile file,
+//                                                       @RequestPart("account") Account account ) {
+//        if (file != null) {
+//            String fileName = file.getOriginalFilename();
+//            try {
+//                FileCopyUtils.copy(file.getBytes(), new File(link + fileName));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            account.setAvatar(displayLink + fileName);
+//        } else {
+//            account.setAvatar(displayLink + "");
+//        }
+//        return new ResponseEntity<>(accountService.save(account), HttpStatus.CREATED);
+//    }
+
 }

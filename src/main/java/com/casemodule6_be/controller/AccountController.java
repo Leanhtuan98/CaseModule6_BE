@@ -1,8 +1,11 @@
 package com.casemodule6_be.controller;
 
+import com.casemodule6_be.dto.AccountToken;
+import com.casemodule6_be.dto.ForgotPassword;
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.dto.ChangePassword;
 import com.casemodule6_be.service.AccountService;
+import com.casemodule6_be.service.EmailService;
 import com.casemodule6_be.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,14 +14,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.parameters.P;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+import javax.mail.MessagingException;
 import java.io.File;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+
 
 @RestController
 @CrossOrigin("*")
@@ -32,6 +37,8 @@ public class AccountController {
 
     @Autowired
     JwtService jwtService;
+    @Autowired
+    EmailService emailService;
 
     @Value("${upload.path}")
     private String link;
@@ -45,40 +52,20 @@ public class AccountController {
     public List<Account> showAllAccount() {
         return accountService.findAll();
     }
-
-
-    //    Đăng kí user mới
-    @PostMapping("/account")
-    public void create(@RequestBody Account account) {
-        accountService.save(account);
+    @GetMapping("/{email}")
+    public ResponseEntity<String> findByEmail(@PathVariable String email){
+       Account account = accountService.findByEmail(email);
+        if (account !=null){
+            return new ResponseEntity<>(account.getEmail(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
-    //    Hiển thị user muốn sửa
     @GetMapping("/account/{id}")
-    public Account showAccountDetail(@PathVariable int id) {
-        return accountService.findById(id).get();
-    }
-
-
-    //    Sửa user
-    @PostMapping("/account/{id}")
-    public void saveEdit(@RequestBody Account account) {
-        accountService.save(account);
-
-    }
-
-    //    Xóa user
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable int id) {
-        accountService.delete(id);
-    }
-
-    @GetMapping("/{id}")
     public ResponseEntity<Account> findById(@PathVariable Long id) {
-        Optional<Account> account = accountService.findById(id);
-        if (account.isPresent()) {
-            return new ResponseEntity<>(account.get(), HttpStatus.OK);
+        Account account = accountService.findById(id);
+        if (account != null) {
+            return new ResponseEntity<>(account, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -87,13 +74,11 @@ public class AccountController {
         return new ResponseEntity<>(accountService.findAccountByName(name),HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    @Transactional
+    @PutMapping("/")
     public ResponseEntity<Account> updateAccount(@RequestPart(value = "file", required = false)MultipartFile file,
-                                           @RequestPart("account") Account account,
-                                           @PathVariable Long id) {
-        Optional<Account> updateAccount = accountService.findById(id);
-        if (!updateAccount.isPresent()) {
+                                           @RequestBody Account account) {
+        Account updateAccount = accountService.findById(account.getId());
+        if (updateAccount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         if (file != null) {
@@ -103,18 +88,17 @@ public class AccountController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            updateAccount.get().setAvatar(displayLink + fileName);
+            updateAccount.setAvatar(displayLink + fileName);
         }
-        updateAccount.get().setPhone(account.getPhone());
-        updateAccount.get().setEmail(account.getEmail());
-        updateAccount.get().setName(account.getName());
-        return new ResponseEntity<>(accountService.save(updateAccount.get()),HttpStatus.OK);
+        updateAccount.setPhone(account.getPhone());
+        updateAccount.setName(account.getName());
+        return new ResponseEntity<>(accountService.save(updateAccount),HttpStatus.OK);
     }
 
-    @PutMapping("/change-password/{id}")
-    public ResponseEntity<?> changePassword(@PathVariable Long id,
-                                            @RequestBody ChangePassword changePassword) {
-        Account account = accountService.findById(id).get();
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePassword changePassword) {
+
+        Account account = accountService.findById(changePassword.getId());
 
         if (changePassword.getNewPass().equals("") || changePassword.getConfirmPass().equals("")) {
             return new ResponseEntity<>("No blank", HttpStatus.NOT_FOUND);
@@ -134,5 +118,19 @@ public class AccountController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPassword forgotPassword) throws MessagingException {
+        Account account = accountService.findByEmail(forgotPassword.getEmail());
+        Account confirmEmail = accountService.findAccountByEmail(forgotPassword.getEmail());
+        if ( forgotPassword.getEmail().equals("")) {
+            return new ResponseEntity<>("All fields can not be blank", HttpStatus.NOT_FOUND);
+        }
+        if (confirmEmail.equals(confirmEmail)) {
+            emailService.forgotMail(account.getEmail(),"caseModule6 send:",account.getPassword());
+            return new ResponseEntity<>(confirmEmail, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Wrong email",HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
