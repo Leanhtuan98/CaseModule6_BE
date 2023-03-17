@@ -1,10 +1,9 @@
 package com.casemodule6_be.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
@@ -23,7 +22,7 @@ public class Room {
 
     @ManyToOne
     private Address address;
-
+    @ColumnDefault("true")
     private boolean status;
 
 
