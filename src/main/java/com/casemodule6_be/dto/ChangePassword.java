@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 
 public class ChangePassword {
-    private Long Id;
-    private String currentPass;
-    private String newPass;
-    private String confirmPass;
+    private long id;
+    private String currentPassword;
+    private String newPassword;
+    private String confirmPassword;
 }

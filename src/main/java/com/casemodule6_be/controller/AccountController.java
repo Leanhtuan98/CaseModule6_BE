@@ -24,6 +24,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 
 @RestController
 @CrossOrigin("*")
@@ -100,20 +102,21 @@ public class AccountController {
 
         Account account = accountService.findById(changePassword.getId());
 
-        if (changePassword.getNewPass().equals("") || changePassword.getConfirmPass().equals("")) {
+
+        if (changePassword.getNewPassword().equals("") || changePassword.getConfirmPassword().equals("")) {
             return new ResponseEntity<>("No blank", HttpStatus.NOT_FOUND);
         }
 
-        if (changePassword.getNewPass().equals(account.getPassword())) {
+        if (changePassword.getNewPassword().equals(account.getPassword())) {
 
             return new ResponseEntity<>("New password can not same current password",HttpStatus.NOT_FOUND);
 
-        } else if (!changePassword.getConfirmPass().equals(changePassword.getNewPass())) {
+        } else if (!changePassword.getConfirmPassword().equals(changePassword.getNewPassword())) {
 
             return new ResponseEntity<>("Wrong re-password",HttpStatus.NOT_FOUND);
 
         }
-        account.setPassword(changePassword.getNewPass());
+        account.setPassword(changePassword.getNewPassword());
         accountService.save(account);
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
@@ -126,7 +129,7 @@ public class AccountController {
             return new ResponseEntity<>("All fields can not be blank", HttpStatus.NOT_FOUND);
         }
         if (confirmEmail.equals(confirmEmail)) {
-            emailService.forgotMail(account.getEmail(),"caseModule6 send:",account.getPassword());
+            emailService.forgotMail(account.getEmail(),"Rent Room send:",account.getPassword());
             return new ResponseEntity<>(confirmEmail, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Wrong email",HttpStatus.NOT_FOUND);
