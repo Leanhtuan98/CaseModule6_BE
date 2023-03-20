@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");
-        http.authorizeRequests().antMatchers( "/login", "/register", "/account/**","/rooms/**","/bill/**","/sendMail/**","/host/**","/showForGuest/**","/profile/**","/changePassword/**","/forgotPassword")
+        http.authorizeRequests().antMatchers( "/**")
         .permitAll()
                 .anyRequest().authenticated();
                 // .and().csrf().disable().formLogin().loginPage("/login").permitAll();
