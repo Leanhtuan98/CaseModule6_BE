@@ -3,10 +3,9 @@ package com.casemodule6_be.dto;
 import lombok.Data;
 
 @Data
-
-public class ChangePassword {
-    private long id;
-    private String currentPassword;
+public class ForgotPassword {
+    private Long id;
+    private String email;
     private String newPassword;
     private String confirmPassword;
 }

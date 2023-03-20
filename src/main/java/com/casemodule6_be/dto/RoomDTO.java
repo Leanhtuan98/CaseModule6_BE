@@ -7,13 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDTO {
-    private String content;
-    private Long roomId;
-    private Long accountId;
-    private Integer rating;
-    private String avatar;
+public class RoomDTO {
     private String name;
-
-
+    private String images;
+    private double price;
+    private long id;
 }

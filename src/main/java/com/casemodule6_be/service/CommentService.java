@@ -17,19 +17,20 @@ public class CommentService {
     @Autowired
     ICommentRepo iCommentRepo;
 
-//    public List<CommentDTO> showComment(){
-//        List<Comment> comments = (List<Comment>) iCommentRepo.findAll();
-//        List<CommentDTO> result =  comments.stream().map( c->{
-//            CommentDTO commentDTO = new CommentDTO(c.getContent(), c.getRoom().getId(), c.getAccount().getId(), c.getRating());
-//            return commentDTO;
-//        }).collect(Collectors.toList());
-//        return result;
-//
-//    }
+    public List<CommentDTO> showCommentDTO(){
+        List<Comment> comments = (List<Comment>) iCommentRepo.findAll();
+        List<CommentDTO> result =  comments.stream().map( c->{
+            CommentDTO commentDTO = new CommentDTO(c.getContent(), c.getRoom().getId(), c.getAccount().getId(),
+                    c.getRating(),c.getAccount().getAvatar(),c.getAccount().getName());
+            return commentDTO;
+        }).collect(Collectors.toList());
+        return result;
+
+    }
 
 
-    public List<CommentProjection> showComment() {
-        return iCommentRepo.showComment();
+    public List<CommentProjection> showComment(Long id) {
+        return iCommentRepo.showComment(id);
     }
 
     public List<Comment> findCommentByRoom(Room room) {

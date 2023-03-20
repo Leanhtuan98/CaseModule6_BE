@@ -1,9 +1,7 @@
 package com.casemodule6_be.controller;
 
-import com.casemodule6_be.dto.RoomDetails;
-import com.casemodule6_be.dto.RoomProjection;
+import com.casemodule6_be.dto.*;
 
-import com.casemodule6_be.dto.RoomSFGDto;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import com.casemodule6_be.dto.RoomDetails;
 import com.casemodule6_be.service.CommentService;
 import com.casemodule6_be.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -49,18 +43,32 @@ public class RoomController {
 
 
     @GetMapping("/topRent")
-    public List<RoomProjection> getTopRent(){
+    public List<RoomDTO> getTopRent(){
         return roomService.findTopRent();
     }
 
+
+
+
+//    @GetMapping("/roomDetail/{id}")
+//    public ResponseEntity<RoomDetailDTO> findById(@PathVariable Long id) {
+//        RoomDetailDTO roomdetails = new RoomDetailDTO();
+//        Room room = roomService.findRoomById(id);
+//        roomdetails.setRoom(room);
+//        roomdetails.setComments(commentService.findCommentByRoom(room));
+//        roomdetails.setImg(imageService.findImgByRoom(room));
+//        return new ResponseEntity<>(roomdetails, HttpStatus.OK);
+//    }
+
+
+//    @GetMapping("/roomDetail/{id}")
+//    public List<RoomDetailDTO> showDetail(@PathVariable Long id){
+//        return roomService.showRoomDetail(id);
+//    }
+
     @GetMapping("/roomDetail/{id}")
-    public ResponseEntity<RoomDetails> findById(@PathVariable Long id) {
-        RoomDetails roomdetails = new RoomDetails();
-        Room room = roomService.findRoomById(id);
-        roomdetails.setRoom(room);
-        roomdetails.setComments(commentService.findCommentByRoom(room));
-        roomdetails.setImg(imageService.findImgByRoom(room));
-        return new ResponseEntity<>(roomdetails, HttpStatus.OK);
+    public RoomDetailProjection showDetail(@PathVariable Long id){
+        return roomService.showRoomDetail(id);
     }
 }
 

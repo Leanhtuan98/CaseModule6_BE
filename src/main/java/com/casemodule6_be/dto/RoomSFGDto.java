@@ -1,8 +1,6 @@
 package com.casemodule6_be.dto;
-
 import lombok.Data;
 
-import javax.persistence.Entity;
 
 
 @Data

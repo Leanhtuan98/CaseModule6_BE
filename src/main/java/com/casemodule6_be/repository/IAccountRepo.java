@@ -13,6 +13,7 @@ public interface IAccountRepo extends PagingAndSortingRepository<Account, Long> 
     Optional<Account> findByName(String name);
     Optional<Account> findByPhone(String phone);
     Account findAccountByName(String name);
+    Optional<Account> findById(Long id);
 
     Account findAccountByEmail(String email);
     Account findByEmail(String email);
