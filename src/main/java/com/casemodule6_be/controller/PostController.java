@@ -74,9 +74,9 @@ public class PostController {
         for (MultipartFile fileImg : files) {
             String nameImg = fileImg.getOriginalFilename();
             try {
-                FileCopyUtils.copy(fileImg.getBytes(), new File("C:\\Users\\dell\\Desktop\\MD6\\CaseModule6_BE\\src\\test\\testimg\\" + nameImg));
+                FileCopyUtils.copy(fileImg.getBytes(), new File("C:\\Users\\dell\\Desktop\\MD6\\CaseModule6_FE\\src\\assets\\img\\bach\\" + nameImg));
                 Image image = new Image();
-                image.setName("/images/products/" + nameImg);
+                image.setName("assets/img/bach/" + nameImg);
                 image.setRoom(room);
                 imageList.add(image);
             } catch (IOException e) {
