@@ -29,7 +29,7 @@ public class EmailService {
     public void forgotMail(String to,String subject,String password) throws MessagingException{
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,true);
-        helper.setFrom("leanhtuan0198@gmail.com");
+        helper.setFrom("findroomcase6@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
         String htmlMsg = "Email :" + to + "<br><b>Password: </b> "+ password + "<br><a href=\"http://localhost:4200/login\">Click here to Login</a></p>";
