@@ -4,6 +4,8 @@ import com.casemodule6_be.dto.AccountToken;
 import com.casemodule6_be.dto.ForgotPassword;
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.dto.ChangePassword;
+import com.casemodule6_be.model.Image;
+import com.casemodule6_be.model.Room;
 import com.casemodule6_be.service.AccountService;
 import com.casemodule6_be.service.EmailService;
 import com.casemodule6_be.service.JwtService;
@@ -21,8 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
@@ -54,11 +59,12 @@ public class AccountController {
     public List<Account> showAllAccount() {
         return accountService.findAll();
     }
+
     @GetMapping("/{email}")
-    public ResponseEntity<String> findByEmail(@PathVariable String email){
-       Account account = accountService.findByEmail(email);
-        if (account !=null){
-            return new ResponseEntity<>(account.getEmail(),HttpStatus.OK);
+    public ResponseEntity<String> findByEmail(@PathVariable String email) {
+        Account account = accountService.findByEmail(email);
+        if (account != null) {
+            return new ResponseEntity<>(account.getEmail(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -71,14 +77,15 @@ public class AccountController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
     @GetMapping("/{name}")
     public ResponseEntity<Account> findByName(@PathVariable String name) {
-        return new ResponseEntity<>(accountService.findAccountByName(name),HttpStatus.OK);
+        return new ResponseEntity<>(accountService.findAccountByName(name), HttpStatus.OK);
     }
 
     @PutMapping("/")
-    public ResponseEntity<Account> updateAccount(@RequestPart(value = "file", required = false)MultipartFile file,
-                                           @RequestBody Account account) {
+    public ResponseEntity<Account> updateAccount(@RequestPart(value = "file", required = false) MultipartFile file,
+                                                 @RequestBody Account account) {
         Account updateAccount = accountService.findById(account.getId());
         if (updateAccount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -87,14 +94,17 @@ public class AccountController {
             String fileName = file.getOriginalFilename();
             try {
                 FileCopyUtils.copy(file.getBytes(), new File(link + fileName));
+                account.setAvatar("/img/" + fileName);
+                accountService.save(account);
             } catch (Exception e) {
+
                 e.printStackTrace();
             }
-            updateAccount.setAvatar(displayLink + fileName);
         }
+        account.setAvatar("/img/avatar.jpg");
         updateAccount.setPhone(account.getPhone());
         updateAccount.setName(account.getName());
-        return new ResponseEntity<>(accountService.save(updateAccount),HttpStatus.OK);
+        return new ResponseEntity<>(accountService.save(updateAccount), HttpStatus.OK);
     }
 
     @PostMapping("/changePassword")
@@ -102,18 +112,17 @@ public class AccountController {
 
         Account account = accountService.findById(changePassword.getId());
 
-
         if (changePassword.getNewPassword().equals("") || changePassword.getConfirmPassword().equals("")) {
             return new ResponseEntity<>("No blank", HttpStatus.NOT_FOUND);
         }
 
         if (changePassword.getNewPassword().equals(account.getPassword())) {
 
-            return new ResponseEntity<>("New password can not same current password",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("New password can not same current password", HttpStatus.NOT_FOUND);
 
         } else if (!changePassword.getConfirmPassword().equals(changePassword.getNewPassword())) {
 
-            return new ResponseEntity<>("Wrong re-password",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Wrong re-password", HttpStatus.NOT_FOUND);
 
         }
         account.setPassword(changePassword.getNewPassword());
@@ -125,15 +134,18 @@ public class AccountController {
     public ResponseEntity<?> forgotPassword(@RequestBody ForgotPassword forgotPassword) throws MessagingException {
         Account account = accountService.findByEmail(forgotPassword.getEmail());
         Account confirmEmail = accountService.findAccountByEmail(forgotPassword.getEmail());
-        if ( forgotPassword.getEmail().equals("")) {
+        if (forgotPassword.getEmail().equals("")) {
             return new ResponseEntity<>("All fields can not be blank", HttpStatus.NOT_FOUND);
         }
         if (confirmEmail.equals(confirmEmail)) {
-            emailService.forgotMail(account.getEmail(),"Rent Room send:",account.getPassword());
+            emailService.forgotMail(account.getEmail(), "Rent Room send:", account.getPassword());
             return new ResponseEntity<>(confirmEmail, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Wrong email",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Wrong email", HttpStatus.NOT_FOUND);
         }
     }
-
 }
+
+
+
+
