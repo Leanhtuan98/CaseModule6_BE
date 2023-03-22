@@ -32,8 +32,8 @@ public class RoomController {
     public List<RoomSFGDto> find(@RequestParam String categoryName, @RequestParam String addressName,
                                  @RequestParam double price1, @RequestParam double price2,
                                  @RequestParam String checkin, @RequestParam String checkout) {
-        return roomService.find('%'+categoryName+'%', addressName,
-                price1,price2,checkin,checkout);
+        return roomService.find('%' + categoryName + '%', addressName,
+                price1, price2, checkin, checkout);
     }
 
     @Autowired
@@ -43,32 +43,18 @@ public class RoomController {
 
 
     @GetMapping("/topRent")
-    public List<RoomDTO> getTopRent(){
+    public List<RoomDTO> getTopRent() {
         return roomService.findTopRent();
     }
 
-
-
-
-//    @GetMapping("/roomDetail/{id}")
-//    public ResponseEntity<RoomDetailDTO> findById(@PathVariable Long id) {
-//        RoomDetailDTO roomdetails = new RoomDetailDTO();
-//        Room room = roomService.findRoomById(id);
-//        roomdetails.setRoom(room);
-//        roomdetails.setComments(commentService.findCommentByRoom(room));
-//        roomdetails.setImg(imageService.findImgByRoom(room));
-//        return new ResponseEntity<>(roomdetails, HttpStatus.OK);
-//    }
-
-
-//    @GetMapping("/roomDetail/{id}")
-//    public List<RoomDetailDTO> showDetail(@PathVariable Long id){
-//        return roomService.showRoomDetail(id);
-//    }
-
     @GetMapping("/roomDetail/{id}")
-    public RoomDetailProjection showDetail(@PathVariable Long id){
+    public RoomDetailProjection showDetail(@PathVariable Long id) {
         return roomService.showRoomDetail(id);
+    }
+
+    @GetMapping("/p/findRoomById/{id}")
+    public Room findRoomById(@PathVariable Long id) {
+        return roomService.findRoomById(id);
     }
 }
 

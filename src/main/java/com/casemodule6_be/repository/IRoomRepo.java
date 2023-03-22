@@ -3,6 +3,7 @@ package com.casemodule6_be.repository;
 import com.casemodule6_be.dto.RoomDetailDTO;
 import com.casemodule6_be.dto.RoomDetailProjection;
 import com.casemodule6_be.dto.RoomProjection;
+import com.casemodule6_be.model.Account;
 import com.casemodule6_be.model.Room;
 import org.springframework.data.jpa.repository.Query;
 
@@ -48,12 +49,9 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
             "check_in not BETWEEN cast(:checkin as DATE) AND CAST(:checkout as DATE)\n" +
             "and check_out not BETWEEN  cast(:checkin as DATE) AND CAST(:checkout  as DATE)\n" +
             "EXCEPT \n" +
-            "(select room_id from bill_detail where \n" +
-            "check_in <= cast(:checkin as DATE)\n" +
-            "and check_out >= cast(:checkin as DATE))" +
-            "except (select room_id from bill_detail where " +
-            "check_in >= cast(:checkin as DATE )" +
-            "and check_out <= cast(:checkin as date )))")
+            "(select room_id from order_detail where \n" +
+            "check_in < cast(:checkin as DATE)\n" +
+            "and check_out > cast(:checkin as DATE)))")
     List<Room> findAll(@Param("categoryName") String categoryName,
                        @Param("addressName") String addressName,
                        @Param("price1") double price1,
@@ -77,6 +75,5 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
             "GROUP BY r.id")
 //    List<RoomDetailProjection> showDetail(@Param("id") Long id);
     RoomDetailProjection showDetail(@Param("id") Long id);
-
 
 }
