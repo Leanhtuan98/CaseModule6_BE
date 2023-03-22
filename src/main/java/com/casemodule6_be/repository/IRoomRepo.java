@@ -39,12 +39,12 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
             "FROM room  JOIN category on room.category_id = category.id\n" +
             "left JOIN image on room.id = image.room_id\n" +
             "JOIN address ON room.address_id = address.id\n" +
-            "left join order_detail on room.id = order_detail.room_id\n" +
+            "left join bill_detail on room.id = bill_detail.room_id\n" +
             "WHERE category.name like :categoryName \n" +
             "and address.name like :addressName \n" +
             "and price BETWEEN  :price1 and  :price2 \n" +
             "and room.id in  (\n" +
-            "SELECT room.id from  order_detail  " +
+            "SELECT room.id from  bill_detail  " +
             "WHERE \n" +
             "check_in not BETWEEN cast(:checkin as DATE) AND CAST(:checkout as DATE)\n" +
             "and check_out not BETWEEN  cast(:checkin as DATE) AND CAST(:checkout  as DATE)\n" +

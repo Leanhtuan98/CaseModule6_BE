@@ -35,8 +35,22 @@ public class RegisterController {
     @Value("${display.path}")
     private String displayLink;
 
+    private String fileName = "";
+    @PostMapping("/img")
+    public void image(@RequestBody MultipartFile img){
+        MultipartFile file = img;
+        if (file != null){
+            this.fileName = file.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(file.getBytes(), new File(link + fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterForm account,@RequestPart(value = "fileUpdate", required = false) MultipartFile file) {
+    public ResponseEntity<?> register(@RequestBody RegisterForm account) {
         if (account.getName().equals("") || account.getPassword().equals("") || account.getEmail().equals("")) {
             return new ResponseEntity<>("No blank!!!", HttpStatus.CONFLICT);
         }
@@ -51,13 +65,10 @@ public class RegisterController {
                 accountCreate.setPassword(account.getPassword());
                 accountCreate.setEmail(account.getEmail());
                 accountCreate.setPhone(account.getPhone());
+
+                String file = account.getAvatar();
                 if (file != null){
-                    String fileName = file.getOriginalFilename();
-                    try {
-                        FileCopyUtils.copy(file.getBytes(), new File(link + fileName));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    String fileName = this.fileName;
                     accountCreate.setAvatar(displayLink + fileName);
                 } else {
                     accountCreate.setAvatar(displayLink + "avatar.jpg");
@@ -66,7 +77,7 @@ public class RegisterController {
                 Role role = new Role();
                 role.setId(2L);
                 roles.add(role);
-                emailService.sendEmail(account.getEmail(),"Thông báo","Tài khoản "+ account.getName()+ " đã được đăng kí với mật khẩu là :" + account.getPassword());
+                emailService.sendEmail(account.getEmail(),"Notice that","The account: "+ account.getName()+ " has been registered with the password :" + account.getPassword());
                 accountService.save(accountCreate);
                 Account account1 = accountService.findAccountByName(account.getName());
                 account1.setRoles(roles);

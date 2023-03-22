@@ -93,6 +93,7 @@ public class RoomService {
     }
 
 
+
 //    public List<RoomDetailDTO> showRoomDetail(Long id){
 //            List<RoomDetailProjection> roomDetailDTOS = iRoomRepo.showDetail(id);
 //            List<RoomDetailDTO> result = roomDetailDTOS.stream().map(r ->{
@@ -112,6 +113,7 @@ public class RoomService {
     public Room findRoomByid(Long id) {
         return iRoomRepo.findById(id).get();
     }
+
 
     public Room save(Room room) {
         return iRoomRepo.save(room);

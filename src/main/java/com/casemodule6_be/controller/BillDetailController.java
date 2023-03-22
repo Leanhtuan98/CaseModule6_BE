@@ -2,10 +2,13 @@ package com.casemodule6_be.controller;
 
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.model.Bill;
+import com.casemodule6_be.dto.BillDTO;
+import com.casemodule6_be.dto.DataDTO;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.service.BillDetailService;
 import com.casemodule6_be.service.EmailService;
 import com.casemodule6_be.service.RoomService;
+import com.casemodule6_be.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +26,18 @@ public class BillDetailController {
     RoomService roomService;
     @Autowired
     EmailService emailService;
+
+
+    @Autowired
+    BillService billService;
+
     @GetMapping("/findByBillId")
     public List<BillDetail> findBillDetailByBillId(@RequestParam long billId) {
-      return   billDetailService.findBillDetailByBillId(billId);
+        return billDetailService.findBillDetailByBillId(billId);
     }
+
     @GetMapping("/schedule/{roomid}")
-    public List<BillDetail> findSchedule(@PathVariable long roomid){
+    public List<BillDetail> findSchedule(@PathVariable long roomid) {
         return billDetailService.findSchedule(roomid);
     }
 
@@ -44,4 +53,22 @@ Account account = roomService.findAccByRoomId(id);
 emailService.sendEmail(account.getEmail(),"Thông báo","Bill" + billDetail.getId() + "vưa hủy phòng");
         return HttpStatus.OK;
 }
+
+    @PostMapping
+    public BillDetail save(@RequestBody BillDetail billDetail) {
+        return billDetailService.save(billDetail);
+    }
+
+    @GetMapping("/showall")
+    public List<BillDetail> showall() {
+        return billDetailService.showAll();
+    }
+
+
+
+    @PostMapping("/post")
+    public void save(@RequestBody BillDTO billDTO){
+         billService.save(billDTO);
+    }
+
 }

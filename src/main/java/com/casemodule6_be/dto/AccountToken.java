@@ -14,6 +14,7 @@ public class AccountToken {
     private String phone;
     private String email;
     private String token;
+    private String avatar;
 
     private List<Role> roles;
 

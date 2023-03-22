@@ -33,7 +33,7 @@ public class LoginController {
 
         String token = jwtService.createToken(authentication);
         Account account1 = accountService.findAccountByName(account.getName());
-        AccountToken accountToken = new AccountToken(account1.getId(), account1.getName(),account1.getPhone(),account1.getEmail(), token,account1.getRoles());
+        AccountToken accountToken = new AccountToken(account1.getId(), account1.getName(),account1.getPhone(),account1.getEmail(), token,account1.getAvatar(), account1.getRoles());
         return accountToken;
     }
 }
