@@ -1,5 +1,6 @@
 package com.casemodule6_be.repository;
 
+import com.casemodule6_be.dto.BillDTO;
 import com.casemodule6_be.dto.BillProjection;
 import com.casemodule6_be.model.Bill;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface IBillRepo extends PagingAndSortingRepository<Bill, Long> {
     List<Bill> findAllByAccount_Id(long accountId);
 
 
+
+    Bill save(Bill bill);
 }

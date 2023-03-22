@@ -2,6 +2,8 @@ package com.casemodule6_be.controller;
 
 import com.casemodule6_be.dto.CommentDTO;
 import com.casemodule6_be.dto.CommentProjection;
+import com.casemodule6_be.model.Comment;
+import com.casemodule6_be.service.AccountService;
 import com.casemodule6_be.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import java.util.List;
 public class CommentController {
     @Autowired
     CommentService commentService;
+     @Autowired
+    AccountService accountService;
 
 
     @GetMapping("/showComment/{id}")
@@ -21,8 +25,12 @@ public class CommentController {
         return commentService.showComment(id);
     }
 
-    @GetMapping("/comm")
-    public List<CommentDTO> showcmm(){
-        return commentService.showCommentDTO();
+
+    @PostMapping("/postComment")
+    public Comment saveComment (@RequestBody Comment comment){
+
+        return commentService.save(comment);
     }
+
+
 }

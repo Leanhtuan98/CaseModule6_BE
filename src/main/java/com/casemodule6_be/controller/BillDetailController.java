@@ -1,7 +1,10 @@
 package com.casemodule6_be.controller;
 
+import com.casemodule6_be.dto.BillDTO;
+import com.casemodule6_be.dto.DataDTO;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.service.BillDetailService;
+import com.casemodule6_be.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,10 @@ import java.util.List;
 public class BillDetailController {
     @Autowired
     BillDetailService billDetailService;
+
+
+    @Autowired
+    BillService billService;
 
     @GetMapping("/findByBillId")
     public List<BillDetail> findBillDetailByBillId(@RequestParam long billId) {
@@ -33,4 +40,12 @@ public class BillDetailController {
     public List<BillDetail> showall() {
         return billDetailService.showAll();
     }
+
+
+
+    @PostMapping("/post")
+    public void save(@RequestBody BillDTO billDTO){
+         billService.save(billDTO);
+    }
+
 }

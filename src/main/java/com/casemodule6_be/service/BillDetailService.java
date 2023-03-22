@@ -30,4 +30,11 @@ public class BillDetailService {
     public List<BillDetail> showAll(){
         return (List<BillDetail>) iBillDetailRepo.findAll();
     }
-}
+    }
+
+
+//    public BillDetail save(BillDetail billDetail){
+//        return iBillDetailRepo.save(billDetail);
+//    }
+
+

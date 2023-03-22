@@ -38,6 +38,9 @@ public class AccountService implements UserDetailsService {
     public Account findById(Long id) {
         return iAccountRepo.findById(id).get();
     }
+    public Account findByIdP(long id){
+        return iAccountRepo.findById(id).get();
+    }
 
     public void delete(long id) {
         iAccountRepo.deleteById(id);

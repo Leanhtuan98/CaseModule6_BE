@@ -20,10 +20,7 @@ public class BillDetail {
     private Room room;
     @ManyToOne
     private Bill bill;
-
-
     private boolean status;
-
     private int amountDay;
 
 
