@@ -3,6 +3,7 @@ package com.casemodule6_be.repository;
 import com.casemodule6_be.dto.RoomDetailDTO;
 import com.casemodule6_be.dto.RoomDetailProjection;
 import com.casemodule6_be.dto.RoomProjection;
+import com.casemodule6_be.model.Account;
 import com.casemodule6_be.model.Room;
 import org.springframework.data.jpa.repository.Query;
 
@@ -74,6 +75,5 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
             "GROUP BY r.id")
 //    List<RoomDetailProjection> showDetail(@Param("id") Long id);
     RoomDetailProjection showDetail(@Param("id") Long id);
-
 
 }

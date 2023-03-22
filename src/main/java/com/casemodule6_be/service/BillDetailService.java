@@ -1,5 +1,6 @@
 package com.casemodule6_be.service;
 
+import com.casemodule6_be.model.Account;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.repository.IBillDetailRepo;
@@ -14,7 +15,12 @@ public class BillDetailService {
     @Autowired
     IBillDetailRepo iBillDetailRepo;
 
-
+public BillDetail findByid(long id){
+    return iBillDetailRepo.findById(id).get();
+}
+public BillDetail save(BillDetail billDetail){
+    return iBillDetailRepo.save(billDetail);
+}
     public List<BillDetail> findBillDetailByBillId(long billId) {
         return iBillDetailRepo.findAllByBill_Id(billId);
     }
@@ -23,9 +29,7 @@ public class BillDetailService {
         return iBillDetailRepo.findSchedule(roomID);
     }
 
-    public BillDetail save(BillDetail billDetail) {
-      return   iBillDetailRepo.save(billDetail);
-    }
+
 
     public List<BillDetail> showAll(){
         return (List<BillDetail>) iBillDetailRepo.findAll();

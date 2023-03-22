@@ -3,7 +3,9 @@ package com.casemodule6_be.repository;
 import com.casemodule6_be.model.Account;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,6 @@ public interface IAccountRepo extends PagingAndSortingRepository<Account, Long> 
 
     Page<Account> findAccountByRoles_Id(Pageable pageable, Long id);
 
-
+@Query(nativeQuery = true,value = "select account.* from room join account on account.id = room.account_id where room.id = :id limit 1;")
+    Account findAccountByRoomId(@Param("id") long id);
 }
