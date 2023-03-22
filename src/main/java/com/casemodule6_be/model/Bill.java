@@ -1,6 +1,7 @@
 package com.casemodule6_be.model;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Bill {
     @ManyToOne
     private Account account;
 
-
+    @ColumnDefault("true")
     private boolean status;
 
 }
