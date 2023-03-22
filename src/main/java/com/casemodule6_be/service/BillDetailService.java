@@ -15,9 +15,16 @@ public class BillDetailService {
 
 
     public List<BillDetail> findBillDetailByBillId(long billId) {
-      return   iBillDetailRepo.findAllByBill_Id(billId);
+        return iBillDetailRepo.findAllByBill_Id(billId);
     }
-public List<BillDetail> findSchedule(long roomID){
+
+    public List<BillDetail> findSchedule(long roomID) {
         return iBillDetailRepo.findSchedule(roomID);
-}
+    }
+
+
+    public BillDetail save(BillDetail billDetail){
+        return iBillDetailRepo.save(billDetail);
+    }
+
 }

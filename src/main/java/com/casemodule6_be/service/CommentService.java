@@ -36,4 +36,8 @@ public class CommentService {
     public List<Comment> findCommentByRoom(Room room) {
         return iCommentRepo.findCommentsByRoom(room);
     }
+
+    public Comment save(Comment comment){
+        return iCommentRepo.save(comment);
+    }
 }

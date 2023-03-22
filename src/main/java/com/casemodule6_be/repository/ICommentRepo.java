@@ -16,7 +16,7 @@ import java.util.List;
 public interface ICommentRepo extends PagingAndSortingRepository<Comment, Long> {
 
 
-//  @Query(value = "select c from Comment c")
+
 
     @Query(nativeQuery = true, value = "SELECT  comment.content , comment.rating, comment.room_id as roomId,\n" +
             "           comment.account_id as accountId,\n" +
@@ -27,4 +27,8 @@ public interface ICommentRepo extends PagingAndSortingRepository<Comment, Long> 
     List<CommentProjection> showComment(@Param("id") Long id );
 
     List<Comment> findCommentsByRoom(Room room);
+
+
+
+    Comment save(Comment comment);
 }

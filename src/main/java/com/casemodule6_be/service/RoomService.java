@@ -108,9 +108,6 @@ public class RoomService {
 
 
 
-
-
-
         public Room findRoomByid (Long id){
             return iRoomRepo.findById(id).get();
         }
