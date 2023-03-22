@@ -48,7 +48,7 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
             "WHERE \n" +
             "check_in not BETWEEN cast(:checkin as DATE) AND CAST(:checkout as DATE)\n" +
             "and check_out not BETWEEN  cast(:checkin as DATE) AND CAST(:checkout  as DATE)\n" +
-            "EXCEPT \n" +
+            "except \n" +
             "(select room_id from bill_detail where \n" +
             "check_in <= cast(:checkin as DATE)\n" +
             "and check_out >= cast(:checkin as DATE))" +
