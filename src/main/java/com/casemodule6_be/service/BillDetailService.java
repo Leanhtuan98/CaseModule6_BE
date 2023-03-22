@@ -1,5 +1,6 @@
 package com.casemodule6_be.service;
 
+import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.repository.IBillDetailRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,18 @@ public class BillDetailService {
         return iBillDetailRepo.findSchedule(roomID);
     }
 
-
-    public BillDetail save(BillDetail billDetail){
-        return iBillDetailRepo.save(billDetail);
+    public BillDetail save(BillDetail billDetail) {
+      return   iBillDetailRepo.save(billDetail);
     }
 
-}
+    public List<BillDetail> showAll(){
+        return (List<BillDetail>) iBillDetailRepo.findAll();
+    }
+    }
+
+
+//    public BillDetail save(BillDetail billDetail){
+//        return iBillDetailRepo.save(billDetail);
+//    }
+
+

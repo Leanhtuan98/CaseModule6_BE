@@ -74,9 +74,9 @@ public class PostController {
         for (MultipartFile fileImg : files) {
             String nameImg = fileImg.getOriginalFilename();
             try {
-                FileCopyUtils.copy(fileImg.getBytes(), new File("C:\\Users\\dell\\Desktop\\MD6\\CaseModule6_BE\\src\\test\\testimg\\" + nameImg));
+                FileCopyUtils.copy(fileImg.getBytes(), new File("C:\\Users\\dell\\Desktop\\MD6\\CaseModule6_FE\\src\\assets\\img\\bach\\" + nameImg));
                 Image image = new Image();
-                image.setName("/images/products/" + nameImg);
+                image.setName("assets/img/bach/" + nameImg);
                 image.setRoom(room);
                 imageList.add(image);
             } catch (IOException e) {
@@ -89,7 +89,7 @@ public class PostController {
 
     @PostMapping("/room/{accountId}")
     public Long saveRoom(@RequestBody Room room, @PathVariable long accountId ) {
-        room.setAccount(accountService.findById(accountId).get());
+        room.setAccount(accountService.findById(accountId));
         roomService.save(room);
         return room.getId();
     }

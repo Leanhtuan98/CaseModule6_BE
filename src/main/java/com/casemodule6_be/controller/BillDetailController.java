@@ -17,6 +17,7 @@ public class BillDetailController {
     @Autowired
     BillDetailService billDetailService;
 
+
     @Autowired
     BillService billService;
 
@@ -28,6 +29,16 @@ public class BillDetailController {
     @GetMapping("/schedule/{roomid}")
     public List<BillDetail> findSchedule(@PathVariable long roomid) {
         return billDetailService.findSchedule(roomid);
+    }
+
+    @PostMapping
+    public BillDetail save(@RequestBody BillDetail billDetail) {
+        return billDetailService.save(billDetail);
+    }
+
+    @GetMapping("/showall")
+    public List<BillDetail> showall() {
+        return billDetailService.showAll();
     }
 
 
