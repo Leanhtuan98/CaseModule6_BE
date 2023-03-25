@@ -3,7 +3,6 @@ package com.casemodule6_be.service;
 import com.casemodule6_be.dto.BillDTO;
 import com.casemodule6_be.dto.BillProjection;
 import com.casemodule6_be.dto.DataDTO;
-import com.casemodule6_be.model.Account;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.repository.IAccountRepo;
@@ -14,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -41,7 +39,7 @@ public class BillService {
         return iBillRepo.findAllByAccount_Id(accountId);
     }
 
-    public void save(BillDTO billDTO){
+    public BillDTO save(BillDTO billDTO){
         Long userId = billDTO.getIdAccount();
         Double total = billDTO.getTotalPrice();
         List<DataDTO> dataRent = billDTO.getData();
@@ -65,5 +63,6 @@ public class BillService {
             }
 
         }
+        return billDTO;
     }
 }
