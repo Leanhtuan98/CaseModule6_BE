@@ -39,19 +39,20 @@ public class BillService {
         return iBillRepo.findAllByAccount_Id(accountId);
     }
 
-    public BillDTO save(BillDTO billDTO){
+    public Bill save(BillDTO billDTO) {
         Long userId = billDTO.getIdAccount();
         Double total = billDTO.getTotalPrice();
         List<DataDTO> dataRent = billDTO.getData();
-        if(!dataRent.isEmpty()){
+        Bill bill = null;
+        if (!dataRent.isEmpty()) {
 
-            Bill bill = new Bill();
+            bill = new Bill();
             bill.setDate(billDTO.getDate());
             bill.setAccount(iAccountRepo.findById(userId).get());
             bill.setTotal(total);
             Bill newBill = iBillRepo.save(bill);
 
-            for(DataDTO data : dataRent){
+            for (DataDTO data : dataRent) {
 
                 BillDetail billDetail = new BillDetail();
                 billDetail.setBill(newBill);
@@ -63,6 +64,6 @@ public class BillService {
             }
 
         }
-        return billDTO;
+        return bill;
     }
 }

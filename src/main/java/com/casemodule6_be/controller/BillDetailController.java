@@ -1,12 +1,11 @@
 package com.casemodule6_be.controller;
 
+import com.casemodule6_be.dto.DataDTO;
 import com.casemodule6_be.model.Account;
 import com.casemodule6_be.dto.BillDTO;
+import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
-import com.casemodule6_be.service.BillDetailService;
-import com.casemodule6_be.service.EmailService;
-import com.casemodule6_be.service.RoomService;
-import com.casemodule6_be.service.BillService;
+import com.casemodule6_be.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,8 @@ public class BillDetailController {
 
     @Autowired
     BillService billService;
-
+@Autowired
+    AccountService accountService;
     @GetMapping("/findByBillId")
     public List<BillDetail> findBillDetailByBillId(@RequestParam long billId) {
         return billDetailService.findBillDetailByBillId(billId);
@@ -51,11 +51,15 @@ Account account = roomService.findAccByRoomId(id);
 emailService.sendEmail(account.getEmail(),"Thông báo","Bill" + billDetail.getId() + "vưa hủy phòng");
         return HttpStatus.OK;
 }
-    @PostMapping("/emailbooking")
-    public HttpStatus sendEmailBooking(@RequestParam("roomId") long id, @RequestBody BillDetail billDetail ){
-        Account account = roomService.findAccByRoomId(id);
-        emailService.sendEmail(account.getEmail(),"Thông báo","Tài khoản" + account.getName() + "vưa đặt phòng số"+ billDetail.getId()
-        +"của bạn checkin: " +billDetail.getCheckIn()+",  "+"check out: "+billDetail.getCheckOut()+".Vui lòng truy cập web để xem chi tiết.");
+    @PostMapping("/emailbooking/{accountId}")
+    public HttpStatus sendEmailBooking(@PathVariable("accountId") long id, @RequestBody BillDTO dataDTO){
+        Account account = accountService.findById(id);
+
+        for (DataDTO dataDTO1: dataDTO.getData()
+             ) { emailService.sendEmail(roomService.findAccByRoomId(dataDTO1.getId()).getEmail(),"Thông báo","Tài khoản " + account.getName() + " vưa đặt phòng số"+ dataDTO1.getId()
+                +" của bạn. Checkin: " +dataDTO1.getCheckinDate()+",  "+"check out: "+dataDTO1.getCheckoutDate()+". Vui lòng truy cập web để xem chi tiết.");
+        }
+
         return HttpStatus.OK;
     }
 
@@ -72,8 +76,9 @@ emailService.sendEmail(account.getEmail(),"Thông báo","Bill" + billDetail.getI
 
 
     @PostMapping("/post")
-    public void save(@RequestBody BillDTO billDTO){
-        billService.save(billDTO);
+    public Bill save(@RequestBody BillDTO billDTO){
+
+        return billService.save(billDTO);
     }
 
 }
