@@ -35,7 +35,8 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
 
     Room findByName(String name);
 
-    @Query(nativeQuery = true, value = "SELECT DISTINCT room.*\n" +
+    @Query(nativeQuery = true, value = "select * from room where room.id in(\n" +
+            "SELECT DISTINCT room.id\n" +
             "FROM room  JOIN category on room.category_id = category.id\n" +
             "left JOIN image on room.id = image.room_id\n" +
             "JOIN address ON room.address_id = address.id\n" +
@@ -55,7 +56,7 @@ public interface IRoomRepo extends PagingAndSortingRepository<Room, Long> {
             "except " +
             "(select room_id from bill_detail where " +
             "check_in >= cast(:checkin as date )" +
-            "and check_out <= cast(:checkin as date )))")
+            "and check_out <= cast(:checkin as date ))))")
     List<Room> findAll(@Param("categoryName") String categoryName,
                        @Param("addressName") String addressName,
                        @Param("price1") double price1,
