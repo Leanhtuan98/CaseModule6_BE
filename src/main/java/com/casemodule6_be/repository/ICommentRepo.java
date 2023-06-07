@@ -1,7 +1,6 @@
 package com.casemodule6_be.repository;
 
-import com.casemodule6_be.dto.CommentDTO;
-import com.casemodule6_be.dto.CommentProjection;
+import com.casemodule6_be.projection.CommentProjection;
 import com.casemodule6_be.model.Comment;
 import com.casemodule6_be.model.Room;
 import org.springframework.data.jpa.repository.Query;

@@ -1,7 +1,6 @@
 package com.casemodule6_be.controller;
 
-import com.casemodule6_be.dto.CommentDTO;
-import com.casemodule6_be.dto.CommentProjection;
+import com.casemodule6_be.projection.CommentProjection;
 import com.casemodule6_be.model.Comment;
 import com.casemodule6_be.service.AccountService;
 import com.casemodule6_be.service.CommentService;

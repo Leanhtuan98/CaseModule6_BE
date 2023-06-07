@@ -1,4 +1,4 @@
-package com.casemodule6_be.dto;
+package com.casemodule6_be.projection;
 
 public interface RoomProjection {
     String getName();

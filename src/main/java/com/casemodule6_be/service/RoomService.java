@@ -2,9 +2,10 @@ package com.casemodule6_be.service;
 
 import com.casemodule6_be.dto.*;
 import com.casemodule6_be.model.Account;
-import com.casemodule6_be.model.Comment;
 import com.casemodule6_be.model.Image;
 import com.casemodule6_be.model.Room;
+import com.casemodule6_be.projection.RoomDetailProjection;
+import com.casemodule6_be.projection.RoomProjection;
 import com.casemodule6_be.repository.IAccountRepo;
 import com.casemodule6_be.repository.ICategoryRepo;
 import com.casemodule6_be.repository.IImageRepo;

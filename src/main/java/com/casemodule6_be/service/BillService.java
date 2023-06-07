@@ -1,7 +1,7 @@
 package com.casemodule6_be.service;
 
 import com.casemodule6_be.dto.BillDTO;
-import com.casemodule6_be.dto.BillProjection;
+import com.casemodule6_be.projection.BillProjection;
 import com.casemodule6_be.dto.DataDTO;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;

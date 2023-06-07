@@ -1,6 +1,6 @@
 package com.casemodule6_be.controller;
 
-import com.casemodule6_be.dto.BillProjection;
+import com.casemodule6_be.projection.BillProjection;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;

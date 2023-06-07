@@ -1,9 +1,7 @@
 package com.casemodule6_be.repository;
 
-import com.casemodule6_be.dto.RoomDetailDTO;
-import com.casemodule6_be.dto.RoomDetailProjection;
-import com.casemodule6_be.dto.RoomProjection;
-import com.casemodule6_be.model.Account;
+import com.casemodule6_be.projection.RoomDetailProjection;
+import com.casemodule6_be.projection.RoomProjection;
 import com.casemodule6_be.model.Room;
 import org.springframework.data.jpa.repository.Query;
 

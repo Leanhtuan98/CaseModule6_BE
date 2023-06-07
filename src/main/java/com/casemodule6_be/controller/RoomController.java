@@ -3,6 +3,7 @@ package com.casemodule6_be.controller;
 import com.casemodule6_be.dto.*;
 
 import com.casemodule6_be.model.Room;
+import com.casemodule6_be.projection.RoomDetailProjection;
 import com.casemodule6_be.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +12,6 @@ import java.util.List;
 
 import com.casemodule6_be.service.CommentService;
 import com.casemodule6_be.service.ImageService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 @RestController
 @CrossOrigin("*")
