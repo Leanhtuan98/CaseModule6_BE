@@ -1,5 +1,6 @@
 package com.casemodule6_be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,22 +13,27 @@ import java.sql.Date;
 public class BillDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"M/d/yy", "dd.MM.yyyy"})
     private Date checkIn;
     private Date checkOut;
     @ManyToOne
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    @JsonIgnore
     private Room room;
     @ManyToOne
+    @JoinColumn(name = "bill_id", referencedColumnName = "id")
+    @JsonIgnore
     private Bill bill;
-    private boolean status;
+    private Long status;
     private int amountDay;
 
 
     public BillDetail() {
     }
 
-    public BillDetail(Long id, Date checkIn, Date checkOut, Room room, Bill bill, boolean status, int amountDay) {
+    public BillDetail(Long id, Date checkIn, Date checkOut, Room room, Bill bill, Long status, int amountDay) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -80,11 +86,11 @@ public class BillDetail {
         this.bill = bill;
     }
 
-    public boolean isStatus() {
+    public Long isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 

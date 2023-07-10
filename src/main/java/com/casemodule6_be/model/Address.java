@@ -1,19 +1,34 @@
 package com.casemodule6_be.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+//@Table(name = "CG_Address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
-    private boolean status;
+    @Column(name = "id")
+    private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "status")
+    private Long status;
+
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Room> roomList;
 }
