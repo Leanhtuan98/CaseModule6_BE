@@ -52,25 +52,25 @@ public class BillDetailController {
         return ResponseEntity.ok(billDetailService.save(billDetail));
     }
 
-    @PostMapping("/email")
-    public HttpStatus sendEmailforCanceling(@RequestParam("roomId") long id, @RequestBody BillDetail billDetail) {
-        Account account = roomService.findAccByRoomId(id);
-        emailService.sendEmail(account.getEmail(), "Thông báo", "Bill" + billDetail.getId() + "vưa hủy phòng");
-        return HttpStatus.OK;
-    }
+//    @PostMapping("/email")
+//    public HttpStatus sendEmailforCanceling(@RequestParam("roomId") long id, @RequestBody BillDetail billDetail) {
+//        Account account = roomService.findAccByRoomId(id);
+//        emailService.sendEmail(account.getEmail(), "Thông báo", "Bill" + billDetail.getId() + "vưa hủy phòng");
+//        return HttpStatus.OK;
+//    }
 
-    @PostMapping("/emailBooking/{accountId}")
-    public HttpStatus sendEmailBooking(@PathVariable("accountId") long id, @RequestBody BillDTO dataDTO) {
-        Account account = accountServiceImpl.findById(id);
-
-        for (DataDTO dataDTO1 : dataDTO.getData()
-        ) {
-            emailService.sendEmail(roomService.findAccByRoomId(dataDTO1.getId()).getEmail(), "Thông báo", "Tài khoản " + account.getName() + " vưa đặt phòng số" + dataDTO1.getId()
-                    + " của bạn. Checkin: " + dataDTO1.getCheckinDate() + ",  " + "check out: " + dataDTO1.getCheckoutDate() + ". Vui lòng truy cập web để xem chi tiết.");
-        }
-
-        return HttpStatus.OK;
-    }
+//    @PostMapping("/emailBooking/{accountId}")
+//    public HttpStatus sendEmailBooking(@PathVariable("accountId") long id, @RequestBody BillDTO dataDTO) {
+//        Account account = accountServiceImpl.findById(id);
+//
+//        for (DataDTO dataDTO1 : dataDTO.getData()
+//        ) {
+//            emailService.sendEmail(roomService.findAccByRoomId(dataDTO1.getId()).getEmail(), "Thông báo", "Tài khoản " + account.getName() + " vưa đặt phòng số" + dataDTO1.getId()
+//                    + " của bạn. Checkin: " + dataDTO1.getCheckinDate() + ",  " + "check out: " + dataDTO1.getCheckoutDate() + ". Vui lòng truy cập web để xem chi tiết.");
+//        }
+//
+//        return HttpStatus.OK;
+//    }
 
     @PostMapping
     public BillDetail save(@RequestBody BillDetail billDetail) {

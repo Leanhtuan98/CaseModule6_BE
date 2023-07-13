@@ -1,15 +1,14 @@
 package com.casemodule6_be.repository;
 
-import com.casemodule6_be.model.Bill;
+import com.casemodule6_be.dto.bill_detail.BillDetailProjection;
 import com.casemodule6_be.model.BillDetail;
-import com.casemodule6_be.model.Comment;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface IBillDetailRepo extends PagingAndSortingRepository<BillDetail, Long> {
+public interface BillDetailRepository extends PagingAndSortingRepository<BillDetail, Long> {
     List<BillDetail> findAllByBill_Id(long billId);
 
 
@@ -19,6 +18,11 @@ public interface IBillDetailRepo extends PagingAndSortingRepository<BillDetail, 
 
 
     BillDetail save(BillDetail billDetail);
+
+    @Query(nativeQuery = true,value = "select bill_detail.room_id as roomId, sum(bill_detail.amount_day) as amountDay from bill_detail \n" +
+            " group by bill_detail.room_id\n" +
+            " order by sum(bill_detail.amount_day) desc;")
+    List<BillDetailProjection> findTopRent();
 
 
 }

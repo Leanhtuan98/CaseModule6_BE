@@ -6,7 +6,7 @@ import com.casemodule6_be.dto.DataDTO;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.repository.AccountRepository;
-import com.casemodule6_be.repository.IBillDetailRepo;
+import com.casemodule6_be.repository.BillDetailRepository;
 import com.casemodule6_be.repository.IBillRepo;
 import com.casemodule6_be.repository.RoomRepository;
 import com.casemodule6_be.service.bill.BillService;
@@ -26,7 +26,7 @@ public class BillServiceImpl implements BillService {
     @Autowired
     AccountRepository accountRepository;
     @Autowired
-    IBillDetailRepo iBillDetailRepo;
+    BillDetailRepository billDetailRepository;
     @Autowired
     RoomRepository roomRepository;
 
@@ -61,7 +61,7 @@ public class BillServiceImpl implements BillService {
                 billDetail.setCheckIn(java.sql.Date.valueOf(data.getCheckinDate()));
                 billDetail.setCheckOut(java.sql.Date.valueOf(data.getCheckoutDate()));
                 billDetail.setStatus(Constant.DEFAULT_STATUS);
-                iBillDetailRepo.save(billDetail);
+                billDetailRepository.save(billDetail);
             }
 
         }
