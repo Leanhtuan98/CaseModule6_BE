@@ -1,4 +1,4 @@
-package com.casemodule6_be.dto;
+package com.casemodule6_be.dto.account;
 
 import lombok.Data;
 

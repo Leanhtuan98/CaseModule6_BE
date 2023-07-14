@@ -1,12 +1,14 @@
 package com.casemodule6_be.controller;
 
 import com.casemodule6_be.common.constant.Constant;
+import com.casemodule6_be.dto.bill.BillRequest;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.service.bill.BillService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,13 @@ public class BillController {
     public List<Bill> billByAccountId(@RequestParam Long accountId) {
         L.info("[GET] {}: show bill by account ID", Constant.PREFIX_API_URL + "/bill/showBillByAccountId");
         return billService.findBillByAccountId(accountId);
+    }
+
+
+    @PostMapping("/save")
+    public ResponseEntity<Bill> save(@RequestBody BillRequest billRequest) {
+        L.info("[POST] {}: save bill and bill_detail ", Constant.PREFIX_API_URL + "/bill/save");
+        return ResponseEntity.ok().body(billService.save(billRequest));
     }
 
 }

@@ -1,9 +1,7 @@
 package com.casemodule6_be.controller;
 
 import com.casemodule6_be.common.constant.Constant;
-import com.casemodule6_be.dto.BillDTO;
-import com.casemodule6_be.dto.DataDTO;
-import com.casemodule6_be.model.Account;
+import com.casemodule6_be.dto.bill.BillRequest;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.service.account.impl.AccountServiceImpl;
@@ -14,7 +12,6 @@ import com.casemodule6_be.service.room.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,7 +57,7 @@ public class BillDetailController {
 //    }
 
 //    @PostMapping("/emailBooking/{accountId}")
-//    public HttpStatus sendEmailBooking(@PathVariable("accountId") long id, @RequestBody BillDTO dataDTO) {
+//    public HttpStatus sendEmailBooking(@PathVariable("accountId") long id, @RequestBody BillRequest dataDTO) {
 //        Account account = accountServiceImpl.findById(id);
 //
 //        for (DataDTO dataDTO1 : dataDTO.getData()
@@ -83,10 +80,6 @@ public class BillDetailController {
     }
 
 
-    @PostMapping("/post")
-    public Bill save(@RequestBody BillDTO billDTO) {
 
-        return billServiceImpl.save(billDTO);
-    }
 
 }

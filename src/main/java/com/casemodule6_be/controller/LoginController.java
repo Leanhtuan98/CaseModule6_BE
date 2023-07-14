@@ -1,6 +1,6 @@
 //package com.casemodule6_be.controller;
 //
-//import com.casemodule6_be.dto.AccountToken;
+//import com.casemodule6_be.dto.account.AccountToken;
 //import com.casemodule6_be.model.Account;
 //import com.casemodule6_be.service.account.impl.AccountServiceImpl;
 //import com.casemodule6_be.service.JwtService;

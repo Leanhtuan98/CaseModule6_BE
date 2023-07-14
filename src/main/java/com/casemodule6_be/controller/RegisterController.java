@@ -1,6 +1,6 @@
 //package com.casemodule6_be.controller;
 //
-//import com.casemodule6_be.dto.RegisterForm;
+//import com.casemodule6_be.dto.account.RegisterForm;
 //import com.casemodule6_be.model.Account;
 //import com.casemodule6_be.model.Role;
 //import com.casemodule6_be.service.email.EmailService;

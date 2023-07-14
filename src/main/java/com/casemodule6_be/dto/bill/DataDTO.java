@@ -1,4 +1,4 @@
-package com.casemodule6_be.dto;
+package com.casemodule6_be.dto.bill;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataDTO {
-    private long id;
+    private Long id;
     private String checkinDate;
     private String checkoutDate;
-    private boolean status;
+    private Integer status;
 
 }

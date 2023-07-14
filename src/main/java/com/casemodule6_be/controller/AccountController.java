@@ -1,8 +1,8 @@
 //package com.casemodule6_be.controller;
 //
 //import com.casemodule6_be.common.constant.Constant;
-//import com.casemodule6_be.dto.ChangePassword;
-//import com.casemodule6_be.dto.ForgotPassword;
+//import com.casemodule6_be.dto.account.ChangePassword;
+//import com.casemodule6_be.dto.account.ForgotPassword;
 //import com.casemodule6_be.model.Account;
 //import com.casemodule6_be.service.JwtService;
 //import com.casemodule6_be.service.account.AccountService;
