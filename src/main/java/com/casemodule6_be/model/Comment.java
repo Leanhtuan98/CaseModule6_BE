@@ -1,6 +1,5 @@
 package com.casemodule6_be.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +23,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
 
-    private Account account;
+    private User user;
 
 
     @ManyToOne

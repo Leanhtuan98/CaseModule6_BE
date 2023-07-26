@@ -1,11 +1,12 @@
 package com.casemodule6_be.repository;
 
 import com.casemodule6_be.model.Bill;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public interface BillRepository extends PagingAndSortingRepository<Bill, Long> {
+@Repository
+public interface BillRepository extends JpaRepository<Bill, Long> {
 
 //    @Query(nativeQuery = true, value = "SELECT (month(bill.date)) as month, (sum(bill.total)) as toTalBill\n" +
 //            "            FROM bill\n" +
@@ -13,7 +14,7 @@ public interface BillRepository extends PagingAndSortingRepository<Bill, Long> {
 //    List<BillProjection> showTotalBill();
 
 
-    List<Bill> findAllByAccountId(Long accountId);
+    List<Bill> findAllByUserId(Long accountId);
 
 
 

@@ -8,23 +8,15 @@ import com.casemodule6_be.dto.bill_detail.BillDetailProjection;
 import com.casemodule6_be.dto.file.FileDto;
 import com.casemodule6_be.dto.room.RoomRequest;
 import com.casemodule6_be.dto.room.RoomResponse;
-import com.casemodule6_be.model.Account;
-import com.casemodule6_be.model.Category;
 import com.casemodule6_be.model.Room;
 import com.casemodule6_be.repository.*;
-import com.casemodule6_be.service.address.AddressService;
 import com.casemodule6_be.service.minio.MinioService;
 import com.casemodule6_be.service.room.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +27,7 @@ public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
     private final CategoryRepository categoryRepository;
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
     private final MinioService minioService;
     private final AddressRepository addressRepository;
     private final BillDetailRepository billDetailRepository;
@@ -70,35 +62,6 @@ public class RoomServiceImpl implements RoomService {
     }
 
 
-//    public List<RoomResponse> getRoomForGuest() {
-//        List<Room> rooms = listRoom();
-//        List<RoomResponse> roomResponseList = rooms.stream().map(room -> modelMapper.map(room, RoomResponse.class))
-//                .collect(Collectors.toList());
-//        for (RoomResponse roomResponse : roomResponseList) {
-//            List<Image> images = imageRepository.findImageByRoomId(roomResponse.getId());
-//            if (!images.isEmpty()) {
-//                roomResponse.setImg(images.get(0).getImage());
-//            }
-//            roomResponse.setCategory(findCategoryName(roomResponse.getId()));
-//        }
-//
-//        return roomResponseList;
-//    }
-
-
-
-
-
-
-
-
-
-//    public ResponseEntity<?> showRoomDetail(Long id) {
-////       Room room = roomRepository.showDetail(id);
-//       RoomResponse roomResponse = ObjectMapperUtils.map(roomRepository.showDetail(id),RoomResponse.class);
-//
-//        return ResponseEntity.ok().body(roomResponse);
-//    }
 
 
     public RoomResponse save(RoomRequest roomRequest) {
@@ -111,7 +74,7 @@ public class RoomServiceImpl implements RoomService {
 
         room.setImage(result);
         room.setAddress(addressRepository.findById(roomRequest.getAddressId()).get());
-        room.setAccount(accountRepository.findById(roomRequest.getAccountId()).get());
+        room.setUser(userRepository.findById(roomRequest.getAccountId()).get());
         room.setCategory(categoryRepository.findById(roomRequest.getCategoryId()).get());
         room.setStatus(Constant.DEFAULT_STATUS);
         room.setName(roomRequest.getName());
@@ -136,7 +99,7 @@ public class RoomServiceImpl implements RoomService {
                 .collect(Collectors.joining(","));
         updateRoom.setImage(result);
         updateRoom.setAddress(addressRepository.findById(roomRequest.getAddressId()).get());
-        updateRoom.setAccount(accountRepository.findById(roomRequest.getAccountId()).get());
+        updateRoom.setUser(userRepository.findById(roomRequest.getAccountId()).get());
         updateRoom.setCategory(categoryRepository.findById(roomRequest.getCategoryId()).get());
         updateRoom.setStatus(Constant.DEFAULT_STATUS);
         updateRoom.setName(roomRequest.getName());

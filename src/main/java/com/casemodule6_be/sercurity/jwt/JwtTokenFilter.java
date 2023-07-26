@@ -1,13 +1,18 @@
-package com.casemodule6_be.common.config.filter;
+package com.casemodule6_be.sercurity.jwt;
 
-import com.casemodule6_be.service.account.impl.AccountServiceImpl;
-import com.casemodule6_be.service.JwtService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,30 +21,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Service
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    @Autowired
-    private JwtService jwtService;
 
+
+public class JwtTokenFilter extends OncePerRequestFilter {
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
     @Autowired
-    private AccountServiceImpl accountServiceImpl;
+    JwtProvider jwtProvider;
+    @Autowired
+     UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            // Lấy token trong request
-            String jwt = getTokenFromRequest(request);
 
-            if (jwt != null) {
-                // lấy username trong token
-                String username = jwtService.getUserNameFromJwtToken(jwt);
-                // lấy ra UserDetails thông qua username
-                UserDetails userDetails = accountServiceImpl.loadUserByUsername(username);
+            String jwt = getJwt(request);
+            if (jwt != null && jwtProvider.validateToken(jwt)) {
+                String username = jwtProvider.getUserNameFromToken(jwt);
 
-                // thực hiện việc xắc thực.
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
@@ -49,11 +52,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String getTokenFromRequest(HttpServletRequest request) {
+    private String getJwt(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.replace("Bearer ", "");
         }
+
         return null;
     }
 }

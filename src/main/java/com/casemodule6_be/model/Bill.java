@@ -2,7 +2,6 @@ package com.casemodule6_be.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -25,7 +24,7 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     @JsonIgnore
-    private Account account;
+    private User user;
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     @JsonIgnore

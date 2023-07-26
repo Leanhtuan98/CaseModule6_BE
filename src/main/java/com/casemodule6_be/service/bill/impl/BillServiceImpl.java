@@ -4,11 +4,11 @@ import com.casemodule6_be.common.constant.Constant;
 import com.casemodule6_be.common.enums.EnumSSWException;
 import com.casemodule6_be.common.exception.SSWException;
 import com.casemodule6_be.dto.bill.BillRequest;
-import com.casemodule6_be.model.Account;
+import com.casemodule6_be.model.User;
 import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
 import com.casemodule6_be.model.Room;
-import com.casemodule6_be.repository.AccountRepository;
+import com.casemodule6_be.repository.UserRepository;
 import com.casemodule6_be.repository.BillDetailRepository;
 import com.casemodule6_be.repository.BillRepository;
 import com.casemodule6_be.repository.RoomRepository;
@@ -26,13 +26,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BillServiceImpl implements BillService {
     private final BillRepository billRepository;
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
     private final BillDetailRepository billDetailRepository;
     private final RoomRepository roomRepository;
 
 
-    public List<Bill> findBillByAccountId(Long accountId) {
-        return billRepository.findAllByAccountId(accountId);
+    public List<Bill> findBillByUserId(Long accountId) {
+        return billRepository.findAllByUserId(accountId);
     }
 
 
@@ -41,7 +41,7 @@ public class BillServiceImpl implements BillService {
     public Bill save(BillRequest billRequest) {
 
         Long userId = billRequest.getIdAccount();
-        Optional<Account> account = accountRepository.findById(userId);
+        Optional<User> account = userRepository.findById(userId);
         if(!account.isPresent()){
             throw  new SSWException(EnumSSWException.ACCOUNT_NOT_EXISTED);
         }
@@ -62,7 +62,7 @@ public class BillServiceImpl implements BillService {
 //    Save Bill
         Bill bill =  new Bill();
         bill.setDate(billRequest.getDate());
-        bill.setAccount(accountRepository.findById(userId).get());
+        bill.setUser(userRepository.findById(userId).get());
         bill.setTotal(total);
         bill.setStatus(Constant.DEFAULT_STATUS);
         Bill newBill = billRepository.save(bill);

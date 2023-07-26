@@ -2,7 +2,6 @@ package com.casemodule6_be.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +23,7 @@ public class Room {
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     @JsonIgnore
-    private Account account;
+    private User user;
 
 
     @ManyToOne

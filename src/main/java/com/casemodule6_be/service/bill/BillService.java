@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BillService {
 
-    List<Bill> findBillByAccountId(Long accountId);
+    List<Bill> findBillByUserId(Long accountId);
 
     Bill save(BillRequest billRequest);
 

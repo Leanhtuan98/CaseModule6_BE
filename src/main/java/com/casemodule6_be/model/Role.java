@@ -1,6 +1,11 @@
 package com.casemodule6_be.model;
 
+import com.casemodule6_be.common.enums.RoleName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -8,18 +13,21 @@ import java.util.List;
 
 @Data
 @Entity
-
-public class Role implements GrantedAuthority {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @NaturalId
+    @Column(length = 60)
+    private RoleName name;
     @ManyToMany
-    private List<Account> accounts;
-    @Override
-    public String getAuthority() {
-        return name;
-    }
+    private List<User> users;
+
 
 }

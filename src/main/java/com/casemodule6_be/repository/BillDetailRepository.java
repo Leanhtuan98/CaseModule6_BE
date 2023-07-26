@@ -2,13 +2,14 @@ package com.casemodule6_be.repository;
 
 import com.casemodule6_be.dto.bill_detail.BillDetailProjection;
 import com.casemodule6_be.model.BillDetail;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public interface BillDetailRepository extends PagingAndSortingRepository<BillDetail, Long> {
+@Repository
+public interface BillDetailRepository extends JpaRepository<BillDetail, Long> {
     List<BillDetail> findAllByBill_Id(long billId);
 
 

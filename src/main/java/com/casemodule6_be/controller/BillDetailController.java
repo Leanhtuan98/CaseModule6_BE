@@ -1,10 +1,8 @@
 package com.casemodule6_be.controller;
 
 import com.casemodule6_be.common.constant.Constant;
-import com.casemodule6_be.dto.bill.BillRequest;
-import com.casemodule6_be.model.Bill;
 import com.casemodule6_be.model.BillDetail;
-import com.casemodule6_be.service.account.impl.AccountServiceImpl;
+import com.casemodule6_be.service.user.UserService;
 import com.casemodule6_be.service.email.EmailService;
 import com.casemodule6_be.service.bill.impl.BillServiceImpl;
 import com.casemodule6_be.service.bill_detail.BillDetailService;
@@ -27,7 +25,7 @@ public class BillDetailController {
     private final RoomService roomService;
     private final EmailService emailService;
     private final BillServiceImpl billServiceImpl;
-    private final AccountServiceImpl accountServiceImpl;
+    private final UserService userService;
     private final Logger L = LoggerFactory.getLogger(RoomController.class);
 
     @GetMapping("/findByBillId")
@@ -51,18 +49,18 @@ public class BillDetailController {
 
 //    @PostMapping("/email")
 //    public HttpStatus sendEmailforCanceling(@RequestParam("roomId") long id, @RequestBody BillDetail billDetail) {
-//        Account account = roomService.findAccByRoomId(id);
-//        emailService.sendEmail(account.getEmail(), "Thông báo", "Bill" + billDetail.getId() + "vưa hủy phòng");
+//        User user = roomService.findAccByRoomId(id);
+//        emailService.sendEmail(user.getEmail(), "Thông báo", "Bill" + billDetail.getId() + "vưa hủy phòng");
 //        return HttpStatus.OK;
 //    }
 
 //    @PostMapping("/emailBooking/{accountId}")
 //    public HttpStatus sendEmailBooking(@PathVariable("accountId") long id, @RequestBody BillRequest dataDTO) {
-//        Account account = accountServiceImpl.findById(id);
+//        User user = accountServiceImpl.findById(id);
 //
-//        for (DataDTO dataDTO1 : dataDTO.getData()
+//        for (BillResponese dataDTO1 : dataDTO.getData()
 //        ) {
-//            emailService.sendEmail(roomService.findAccByRoomId(dataDTO1.getId()).getEmail(), "Thông báo", "Tài khoản " + account.getName() + " vưa đặt phòng số" + dataDTO1.getId()
+//            emailService.sendEmail(roomService.findAccByRoomId(dataDTO1.getId()).getEmail(), "Thông báo", "Tài khoản " + user.getName() + " vưa đặt phòng số" + dataDTO1.getId()
 //                    + " của bạn. Checkin: " + dataDTO1.getCheckinDate() + ",  " + "check out: " + dataDTO1.getCheckoutDate() + ". Vui lòng truy cập web để xem chi tiết.");
 //        }
 //

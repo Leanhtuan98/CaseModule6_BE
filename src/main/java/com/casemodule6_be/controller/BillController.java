@@ -29,9 +29,9 @@ public class BillController {
 //    }
 
     @GetMapping(value = "/showBillByAccountId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Bill> billByAccountId(@RequestParam Long accountId) {
-        L.info("[GET] {}: show bill by account ID", Constant.PREFIX_API_URL + "/bill/showBillByAccountId");
-        return billService.findBillByAccountId(accountId);
+    public List<Bill> billByUserId(@RequestParam Long accountId) {
+        L.info("[GET] {}: show bill by user ID", Constant.PREFIX_API_URL + "/bill/showBillByUserId");
+        return billService.findBillByUserId(accountId);
     }
 
 

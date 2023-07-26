@@ -18,8 +18,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 //    @Query(nativeQuery = true, value = "SELECT  comment.content , comment.rating, comment.room_id as roomId,\n" +
 //            "           comment.account_id as accountId,\n" +
-//            "              account.name , account.avatar\n" +
-//            "            FROM comment JOIN account ON comment.account_id = account.id\n" +
+//            "              user.name , user.avatar\n" +
+//            "            FROM comment JOIN user ON comment.account_id = user.id\n" +
 //            "                          JOIN room ON room.id = comment.room_id\n" +
 //            "            WHERE room.id =:id")
 //    List<CommentProjection> showComment(@Param("id") Long id);

@@ -4,8 +4,6 @@ import com.casemodule6_be.common.constant.Constant;
 import com.casemodule6_be.dto.address.AddressRequest;
 import com.casemodule6_be.dto.address.AddressResponse;
 import com.casemodule6_be.model.Address;
-import com.casemodule6_be.model.Room;
-import com.casemodule6_be.service.account.impl.AccountServiceImpl;
 import com.casemodule6_be.service.address.AddressService;
 import com.casemodule6_be.service.address.impl.AddressServiceImpl;
 import com.casemodule6_be.service.room.impl.RoomServiceImpl;
@@ -26,48 +24,6 @@ public class AddressController {
     private final AddressServiceImpl addressServiceImpl;
 
     private final AddressService addressService;
-
-    private final AccountServiceImpl accountServiceImpl;
-
-//    @GetMapping()
-//    public List<RoomHostDto> getRooms(@RequestParam Long accountId) {
-//
-//        return roomService.roomToRoomHostDto(accountId);
-//    }
-
-//    @GetMapping
-//public ResponseEntity<String>sayHello(){
-//        return ResponseEntity.ok("huy đẹp trai vl");
-//    }
-//    @PostMapping
-//    public HttpStatus saveRoom(Room room) {
-//roomService.save(room);
-//        return HttpStatus.OK;
-//    }
-
-//    @PostMapping
-//    public HttpStatus saveRoomWithImages(@RequestBody RoomRequest roomDto) {
-//        Room room = roomDto.getRoom();
-//        List<Image> images = roomDto.getImages();
-//
-//         roomService.save(room);
-//
-//        for (Image image : images) {
-//            image.setRoom(room);
-//        }
-//        imageService.saveAll(images);
-//
-//        return HttpStatus.OK;
-//    }
-
-
-
-//    @PostMapping("/room/{accountId}")
-//    public Long saveRoom(@RequestBody Room room, @PathVariable long accountId) {
-//        room.setAccount(accountServiceImpl.findById(accountId));
-//        roomServiceImpl.save(room);
-//        return room.getId();
-//    }
 
 
     @DeleteMapping

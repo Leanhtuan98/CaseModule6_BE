@@ -6,10 +6,10 @@ import com.casemodule6_be.common.exception.SSWException;
 import com.casemodule6_be.common.utils.ObjectMapperUtils;
 import com.casemodule6_be.dto.comment.CommentRequest;
 import com.casemodule6_be.dto.comment.CommentResponse;
-import com.casemodule6_be.model.Account;
+import com.casemodule6_be.model.User;
 import com.casemodule6_be.model.Comment;
 import com.casemodule6_be.model.Room;
-import com.casemodule6_be.repository.AccountRepository;
+import com.casemodule6_be.repository.UserRepository;
 import com.casemodule6_be.repository.CommentRepository;
 import com.casemodule6_be.repository.RoomRepository;
 import com.casemodule6_be.service.comment.CommentService;
@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
     private final RoomRepository roomRepository;
 
 
@@ -36,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponse save(CommentRequest commentRequest) {
-        Optional<Account> account = accountRepository.findById(commentRequest.getAccountId());
+        Optional<User> account = userRepository.findById(commentRequest.getAccountId());
         if(!account.isPresent()){
             throw  new SSWException(EnumSSWException.ACCOUNT_NOT_EXISTED);
         }
@@ -50,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
                 .rating(commentRequest.getRating())
                 .status(Constant.DEFAULT_STATUS)
                 .build();
-        comment.setAccount(account.get());
+        comment.setUser(account.get());
         comment.setRoom(room.get());
         comment = commentRepository.save(comment);
         return ObjectMapperUtils.map(comment,CommentResponse.class);
@@ -63,8 +62,8 @@ public class CommentServiceImpl implements CommentService {
             throw  new SSWException(EnumSSWException.COMMENT_NOT_EXISTED);
         }
 
-//        Optional<Account> account = accountRepository.findById(commentRequest.getAccountId());
-//        if(!account.isPresent()){
+//        Optional<User> user = accountRepository.findById(commentRequest.getAccountId());
+//        if(!user.isPresent()){
 //            throw  new SSWException(EnumSSWException.ACCOUNT_NOT_EXISTED);
 //        }
 //        Optional<Room> room = roomRepository.findById(commentRequest.getRoomId());
